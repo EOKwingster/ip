@@ -1,10 +1,18 @@
-import java.util.Scanner;
+package com.eokwingster;
+
+import com.eokwingster.responsors.ExitChatResponsor;
+import com.eokwingster.responsors.ResponsorRegistry;
+import com.eokwingster.responsors.StartChatResponsor;
+
+import java.util.List;
 
 public class Wee {
-    private static final Wee INSTANCE = new Wee();
-    public static final String NAME = "Wee";
+    public static final String NAME = "com.eokwingster.Wee";
+    private final ResponsorRegistry responsorRegistry;
 
-    private Wee() {}
+    private Wee(ResponsorRegistry responsorRegistry) {
+        this.responsorRegistry = responsorRegistry;
+    }
 
     public static void main(String[] args) {
         String logo = """
@@ -14,12 +22,11 @@ public class Wee {
                 ██ ███ ██  ██        ██      \s
                  ███ ███   ████████  ████████
                 """;
-        System.out.println("Hello from\n" + logo);
+        System.out.println(logo);
     }
 
     /**
      * Formats and prints messages line by line to the console with the name of this bot in front of the first line
-     *
      * @param messages One or more strings to be printed as part of the dialogue.
      */
     private void say(String... messages) {
@@ -31,5 +38,16 @@ public class Wee {
             stringBuilder.append(prefix).append(messages[i]).append("\n");
         }
         System.out.println(stringBuilder);
+    }
+
+    /**
+     * get Wee with default setting
+     * @return the default Wee
+     */
+    private static Wee getDefaultWee() {
+        ResponsorRegistry responsorRegistry = new ResponsorRegistry();
+        responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
+        responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
+        return new Wee(responsorRegistry);
     }
 }

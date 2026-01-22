@@ -1,4 +1,4 @@
-package responsors;
+package com.eokwingster.responsors;
 
 import java.util.List;
 
