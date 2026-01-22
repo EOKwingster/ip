@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Wee {
-    private static final Wee WEE = new Wee();
+    private static final Wee INSTANCE = new Wee();
     public static final String NAME = "Wee";
 
     private Wee() {}
@@ -16,18 +16,29 @@ public class Wee {
                 """;
         System.out.println("Hello from\n" + logo);
 
-        Wee.startChat();
-        Wee.exitChat();
+        INSTANCE.startChat();
+        INSTANCE.exitChat();
     }
 
-    private static void startChat() {
-        WEE.say("Hello! I'm " + NAME, "What can I do for you");
+    /**
+     * print chat start messages
+     */
+    private void startChat() {
+        INSTANCE.say("Hello! I'm " + NAME, "What can I do for you?");
     }
 
-    private static void exitChat() {
-        WEE.say("Bye. Hope to see you again soon!");
+    /**
+     * print exit message and exit the chat program
+     */
+    private void exitChat() {
+        INSTANCE.say("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Formats and prints messages line by line to the console with the name of this bot in front of the first line
+     *
+     * @param messages One or more strings to be printed as part of the dialogue.
+     */
     private void say(String... messages) {
         String speaker = NAME + " >> ";
         String indentation = " ".repeat(speaker.length());
