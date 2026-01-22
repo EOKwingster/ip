@@ -17,7 +17,6 @@ public class Wee {
         System.out.println("Hello from\n" + logo);
 
         INSTANCE.startChat();
-        INSTANCE.exitChat();
     }
 
     /**
@@ -25,13 +24,6 @@ public class Wee {
      */
     private void startChat() {
         INSTANCE.say("Hello! I'm " + NAME, "What can I do for you?");
-    }
-
-    /**
-     * print exit message and exit the chat program
-     */
-    private void exitChat() {
-        INSTANCE.say("Bye. Hope to see you again soon!");
     }
 
     /**
