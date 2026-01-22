@@ -27,39 +27,20 @@ public class Wee {
         System.out.println(logo);
 
         Wee wee = getDefaultWee();
-        wee.responseFromInput("new");
+        wee.getResponseFromInput("new").say();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-            Responsor responsor = wee.responsorRegistry.getResponsor(input);
-            wee.responseFromInput(input);
-            if (responsor.willExit()) {
+            Response response = wee.getResponseFromInput(input);
+            response.say();
+            if (response.tag() == 1) {
                 break;
             }
         }
     }
 
-    /**
-     * Call the corresponding response logic from user inputs. Default response is echo.
-     * @param input the user inputs
-     */
-    private void responseFromInput(String input) {
-        say(responsorRegistry.getResponsor(input).response(input, chatData));
-    }
-
-    /**
-     * Formats and prints messages line by line to the console with the name of this bot in front of the first line
-     * @param messages One or more strings to be printed as part of the dialogue.
-     */
-    private void say(List<String> messages) {
-        String speaker = NAME + " >> ";
-        String indentation = " ".repeat(speaker.length());
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < messages.size(); i++) {
-            String prefix = i == 0 ? speaker : indentation;
-            stringBuilder.append(prefix).append(messages.get(i)).append("\n");
-        }
-        System.out.println(stringBuilder);
+    private Response getResponseFromInput(String input) {
+        return responsorRegistry.getResponse(input, chatData);
     }
 
     /**

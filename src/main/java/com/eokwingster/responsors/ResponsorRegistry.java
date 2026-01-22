@@ -1,5 +1,7 @@
 package com.eokwingster.responsors;
 
+import com.eokwingster.data.ChatData;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +34,14 @@ public class ResponsorRegistry {
     }
 
     /**
-     * Get the corresponding Responsor from a keyword.
-     * @param keyword A String that will trigger corresponding Responsor to response.
+     * Get the corresponding Responsor from an input.
+     * @param input user input.
      * @return The corresponding Responsor, or AddTaskResponsor if a Responsor can not be found.
      */
-    public Responsor getResponsor(String keyword) {
-        return registry.getOrDefault(keyword, new AddTaskResponsor());
+    public Response getResponse(String input, ChatData chatData) {
+        String[] splitInput = input.split(" ", 2);
+        String keyword = splitInput[0];
+        String inputLeft = splitInput.length > 1 ? splitInput[1] : "";
+        return registry.getOrDefault(keyword, new AddTaskResponsor()).response(inputLeft, chatData);
     }
 }

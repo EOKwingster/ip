@@ -2,8 +2,6 @@ package com.eokwingster.responsors;
 
 import com.eokwingster.data.ChatData;
 
-import java.util.List;
-
 /**
  * define the universal response behavior。
  * Any response logic should be inside a class implements this interface.
@@ -15,13 +13,5 @@ public interface Responsor {
      * @param chatData the data stored in current chat
      * @return Response messages as a list of String, each element is one line.
      */
-    List<String> response(String input, ChatData chatData);
-
-    /**
-     * Distinguish between Responsors that make chat close and the others.
-     * @return if exiting chat after response, default to false.
-     */
-    default boolean willExit() {
-        return false;
-    }
+    Response response(String input, ChatData chatData);
 }

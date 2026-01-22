@@ -14,12 +14,12 @@ public class TaskListResponsor implements Responsor {
      * @return list of stored tasks with number labeling
      */
     @Override
-    public List<String> response(String input, ChatData chatData) {
-        List<String> response = new ArrayList<>();
+    public Response response(String input, ChatData chatData) {
+        List<String> messages = new ArrayList<>();
         List<Task> tasks = chatData.getTasks();
         for (int i = 0; i < tasks.size(); i++) {
-            response.add((i + 1) + ". " + tasks.get(i));
+            messages.add((i + 1) + ". " + tasks.get(i));
         }
-        return response;
+        return Response.of(messages);
     }
 }
