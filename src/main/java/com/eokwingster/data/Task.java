@@ -1,7 +1,7 @@
 package com.eokwingster.data;
 
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     public Task(String description) {
@@ -9,12 +9,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkDone() {
-        this.isDone = false;
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override

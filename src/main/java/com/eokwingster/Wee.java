@@ -39,6 +39,10 @@ public class Wee {
         }
     }
 
+    /**
+     * @param input user input
+     * @return Response of this input
+     */
     private Response getResponseFromInput(String input) {
         return responsorRegistry.getResponse(input, chatData);
     }
@@ -51,7 +55,10 @@ public class Wee {
         ResponsorRegistry responsorRegistry = new ResponsorRegistry();
         responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
         responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
+        responsorRegistry.register("add", new AddTaskResponsor());
         responsorRegistry.register("list", new TaskListResponsor());
+        responsorRegistry.register("mark", new TaskDoneStatusResponsor(true));
+        responsorRegistry.register("unmark", new TaskDoneStatusResponsor(false));
         return new Wee(responsorRegistry,  new ChatData());
     }
 }

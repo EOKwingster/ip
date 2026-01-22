@@ -42,6 +42,6 @@ public class ResponsorRegistry {
         String[] splitInput = input.split(" ", 2);
         String keyword = splitInput[0];
         String inputLeft = splitInput.length > 1 ? splitInput[1] : "";
-        return registry.getOrDefault(keyword, new AddTaskResponsor()).response(inputLeft, chatData);
+        return registry.getOrDefault(keyword, new UnknownResponsor()).response(inputLeft, chatData);
     }
 }
