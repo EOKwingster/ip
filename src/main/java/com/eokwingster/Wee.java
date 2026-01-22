@@ -1,10 +1,7 @@
 package com.eokwingster;
 
 import com.eokwingster.data.ChatData;
-import com.eokwingster.responsors.ExitChatResponsor;
-import com.eokwingster.responsors.Responsor;
-import com.eokwingster.responsors.ResponsorRegistry;
-import com.eokwingster.responsors.StartChatResponsor;
+import com.eokwingster.responsors.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -73,6 +70,7 @@ public class Wee {
         ResponsorRegistry responsorRegistry = new ResponsorRegistry();
         responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
         responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
+        responsorRegistry.register("list", new InputsListResponsor());
         return new Wee(responsorRegistry,  new ChatData());
     }
 }

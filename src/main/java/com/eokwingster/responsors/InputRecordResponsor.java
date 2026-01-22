@@ -4,15 +4,15 @@ import com.eokwingster.data.ChatData;
 
 import java.util.List;
 
-public class EchoResponsor implements Responsor {
-
+public class InputRecordResponsor implements Responsor {
     /**
-     * response the exact same message with user inputs
+     * store the user inputs into chat
      * @param input The String message that user inputs
-     * @return user inputs
+     * @return inputs store message
      */
     @Override
     public List<String> response(String input, ChatData chatData) {
-        return List.of(input);
+        chatData.storeInput(input);
+        return List.of("added: " + input);
     }
 }
