@@ -1,13 +1,15 @@
 package com.eokwingster;
 
 import com.eokwingster.responsors.ExitChatResponsor;
+import com.eokwingster.responsors.Responsor;
 import com.eokwingster.responsors.ResponsorRegistry;
 import com.eokwingster.responsors.StartChatResponsor;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Wee {
-    public static final String NAME = "com.eokwingster.Wee";
+    public static final String NAME = "Wee";
     private final ResponsorRegistry responsorRegistry;
 
     private Wee(ResponsorRegistry responsorRegistry) {
@@ -23,6 +25,27 @@ public class Wee {
                  ███ ███   ████████  ████████
                 """;
         System.out.println(logo);
+
+        Wee wee = getDefaultWee();
+        wee.responseFromInput("new");
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+            Responsor responsor = wee.responsorRegistry.getResponsor(input);
+            wee.responseFromInput(input);
+            if (responsor.willExit()) {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Call the corresponding response logic from user inputs. Default response is echo.
+     * @param input the user inputs
+     */
+    private void responseFromInput(String input) {
+        List<String> response = responsorRegistry.getResponsor(input).response(input);
+        say(response.toArray(new String[0]));
     }
 
     /**
