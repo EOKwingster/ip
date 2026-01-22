@@ -1,10 +1,10 @@
-package com.eokwingster.data;
+package com.eokwingster.data.task;
 
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
 
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -13,9 +13,11 @@ public class Task {
         this.isDone = isDone;
     }
 
+    protected abstract TaskType type();
+
     @Override
     public String toString() {
         String doneStatus = isDone ? "X" : " ";
-        return String.format("[%s] %s", doneStatus, description);
+        return String.format("[%s][%s] %s", type().toString().charAt(0), doneStatus, description);
     }
 }
