@@ -34,9 +34,9 @@ public class ResponsorRegistry {
     /**
      * Get the corresponding Responsor from a keyword.
      * @param keyword A String that will trigger corresponding Responsor to response.
-     * @return The corresponding Responsor, or InputRecordResponsor if a Responsor can not be found.
+     * @return The corresponding Responsor, or AddTaskResponsor if a Responsor can not be found.
      */
     public Responsor getResponsor(String keyword) {
-        return registry.getOrDefault(keyword, new InputRecordResponsor());
+        return registry.getOrDefault(keyword, new AddTaskResponsor());
     }
 }

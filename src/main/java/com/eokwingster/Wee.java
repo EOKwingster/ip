@@ -70,7 +70,7 @@ public class Wee {
         ResponsorRegistry responsorRegistry = new ResponsorRegistry();
         responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
         responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
-        responsorRegistry.register("list", new InputsListResponsor());
+        responsorRegistry.register("list", new TaskListResponsor());
         return new Wee(responsorRegistry,  new ChatData());
     }
 }

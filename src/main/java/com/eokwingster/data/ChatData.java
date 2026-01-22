@@ -7,13 +7,13 @@ import java.util.List;
  * This class store all the data needed and generated in a chat.
  */
 public class ChatData {
-    private final List<String> inputsReceived = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
-    public void storeInput(String input) {
-        inputsReceived.add(input);
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
-    public List<String> getInputsReceived() {
-        return inputsReceived;
+    public List<Task> getTasks() {
+        return tasks;
     }
 }

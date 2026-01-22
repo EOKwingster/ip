@@ -1,18 +1,19 @@
 package com.eokwingster.responsors;
 
 import com.eokwingster.data.ChatData;
+import com.eokwingster.data.Task;
 
 import java.util.List;
 
-public class InputRecordResponsor implements Responsor {
+public class AddTaskResponsor implements Responsor {
     /**
-     * store the user inputs into chat
+     * store the user inputs as task
      * @param input The String message that user inputs
-     * @return inputs store message
+     * @return task added message
      */
     @Override
     public List<String> response(String input, ChatData chatData) {
-        chatData.storeInput(input);
+        chatData.addTask(new Task(input));
         return List.of("added: " + input);
     }
 }
