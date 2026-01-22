@@ -1,5 +1,7 @@
 package com.eokwingster.responsors;
 
+import com.eokwingster.data.ChatData;
+
 import java.util.List;
 
 /**
@@ -10,9 +12,10 @@ public interface Responsor {
     /**
      * The response logic of this Responsor
      * @param input The String message that user inputs
+     * @param chatData the data stored in current chat
      * @return Response messages as a list of String, each element is one line.
      */
-    List<String> response(String input);
+    List<String> response(String input, ChatData chatData);
 
     /**
      * Distinguish between Responsors that make chat close and the others.

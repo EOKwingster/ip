@@ -1,5 +1,7 @@
 package com.eokwingster.responsors;
 
+import com.eokwingster.data.ChatData;
+
 import java.util.List;
 
 public class EchoResponsor implements Responsor {
@@ -10,7 +12,7 @@ public class EchoResponsor implements Responsor {
      * @return user inputs
      */
     @Override
-    public List<String> response(String input) {
+    public List<String> response(String input, ChatData chatData) {
         return List.of(input);
     }
 }
