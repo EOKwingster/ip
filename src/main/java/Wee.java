@@ -13,6 +13,11 @@ public class Wee {
                  ███ ███   ████████  ████████
                 """;
         System.out.println("Hello from\n" + logo);
+
+        Wee.startChat();
+    }
+
+    private static void startChat() {
         WEE.say("Hello! I'm " + NAME, "What can I do for you");
     }
 
