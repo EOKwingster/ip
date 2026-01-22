@@ -15,15 +15,6 @@ public class Wee {
                  ███ ███   ████████  ████████
                 """;
         System.out.println("Hello from\n" + logo);
-
-        INSTANCE.startChat();
-    }
-
-    /**
-     * print chat start messages
-     */
-    private void startChat() {
-        INSTANCE.say("Hello! I'm " + NAME, "What can I do for you?");
     }
 
     /**
