@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Wee {
     private static final Wee WEE = new Wee();
     public static final String NAME = "Wee";
@@ -15,10 +17,15 @@ public class Wee {
         System.out.println("Hello from\n" + logo);
 
         Wee.startChat();
+        Wee.exitChat();
     }
 
     private static void startChat() {
         WEE.say("Hello! I'm " + NAME, "What can I do for you");
+    }
+
+    private static void exitChat() {
+        WEE.say("Bye. Hope to see you again soon!");
     }
 
     private void say(String... messages) {
