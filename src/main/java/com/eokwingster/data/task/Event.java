@@ -10,7 +10,7 @@ public class Event extends Deadline {
 
     @Override
     protected TaskType type() {
-        return TaskType.Event;
+        return TaskType.EVENT;
     }
 
     @Override

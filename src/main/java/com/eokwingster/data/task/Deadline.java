@@ -1,16 +1,20 @@
 package com.eokwingster.data.task;
 
 public class Deadline extends Task{
-    protected final String endTime;
+    protected String endTime;
 
     public Deadline(String description, String endTime) {
         super(description);
         this.endTime = endTime;
     }
 
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
     @Override
     protected TaskType type() {
-        return TaskType.Deadline;
+        return TaskType.DEADLINE;
     }
 
     @Override

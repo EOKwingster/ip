@@ -7,6 +7,6 @@ public class ToDo extends Task {
 
     @Override
     protected TaskType type() {
-        return TaskType.ToDo;
+        return TaskType.TO_DO;
     }
 }

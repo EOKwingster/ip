@@ -1,5 +1,6 @@
 package com.eokwingster;
 
+import com.eokwingster.command.Keyword;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.TaskType;
@@ -51,20 +52,37 @@ public class Wee {
         List<Step> steps = Step.listOf(input);
         Response.Builder response = Response.builder();
         Responsor responsor = new UnknownResponsor("");
-        Responsor lastRootResponsor = null;
+        Keyword lastRootKeyword = null;
         for (Step step : steps) {
+            // step label
             if (response.hasTags(Response.Tag.Modifier)) {
                 response.removeLastStepStartPoint();
                 response.removeTags(Response.Tag.Modifier);
             }
             response.markStepStartPoint();
-            if (!(responsor instanceof Modifier)) {
-                lastRootResponsor = responsor;
+
+            // get Keyword from string
+            Keyword keyword;
+            try {
+                keyword = Keyword.valueOf(step.keyword().toUpperCase());
+            } catch (NullPointerException | IllegalArgumentException e) {
+                keyword = null;
             }
-            responsor = responsorRegistry.getResponsor(step.keyword());
+
+            // record root responsor it the last responsor is and get new responsor
+            if (keyword != null) {
+                if (!keyword.isModifier()) {
+                    lastRootKeyword = keyword;
+                }
+                responsor = responsorRegistry.getResponsor(keyword);
+            } else {
+                responsor = new UnknownResponsor(step.keyword());
+            }
+
+            //
             if (responsor instanceof Modifier modifier) {
-                if (!modifier.getRootResponsors().contains(lastRootResponsor.getClass())) {
-                    String errorMessage = String.format("%s command must follow commands: %s", step.keyword(), modifier.getRootResponsors());
+                if (!modifier.getRootKeywords().contains(lastRootKeyword)) {
+                    String errorMessage = String.format("%s command must follow commands: %s", keyword, modifier.getRootKeywords());
                     responsor = new ErrorResponsor(errorMessage);
                 }
             }
@@ -82,14 +100,15 @@ public class Wee {
      */
     private static Wee getDefaultWee() {
         ResponsorRegistry responsorRegistry = new ResponsorRegistry();
-        responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
-        responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
-        responsorRegistry.register("todo", new TaskAddResponsor(TaskType.ToDo));
-        responsorRegistry.register("deadline", new TaskAddResponsor(TaskType.Deadline));
-        responsorRegistry.register("event", new TaskAddResponsor(TaskType.Event));
-        responsorRegistry.register("list", new TaskListResponsor());
-        responsorRegistry.register("mark", new TaskDoneStatusResponsor(true));
-        responsorRegistry.register("unmark", new TaskDoneStatusResponsor(false));
+        responsorRegistry.register(new StartChatResponsor(), Keyword.NEW, Keyword.HI);
+        responsorRegistry.register(new ExitChatResponsor(), Keyword.EXIT, Keyword.BYE);
+        responsorRegistry.register(new TaskAddResponsor(TaskType.TO_DO), Keyword.TODO);
+        responsorRegistry.register(new TaskAddResponsor(TaskType.DEADLINE), Keyword.DEADLINE);
+        responsorRegistry.register(new TaskAddResponsor(TaskType.EVENT), Keyword.EVENT);
+        responsorRegistry.register(new TaskListResponsor(), Keyword.LIST);
+        responsorRegistry.register(new TaskDoneStatusResponsor(true), Keyword.MARK);
+        responsorRegistry.register(new TaskDoneStatusResponsor(false), Keyword.UNMARK);
+        responsorRegistry.register(new TaskBeginTimeResponsor(), Keyword.FROM);
         return new Wee(responsorRegistry,  new ChatData());
     }
 }

@@ -1,5 +1,6 @@
 package com.eokwingster.responsor;
 
+import com.eokwingster.command.Keyword;
 import com.eokwingster.responsor.responsors.UnknownResponsor;
 
 import java.util.HashMap;
@@ -11,26 +12,32 @@ import java.util.Map;
  * All responsors should be registered in at least one ResponsorRegistry.
  */
 public class ResponsorRegistry {
-    private final Map<String, Responsor> registry = new HashMap<>();
+    private final Map<Keyword, Responsor> registry = new HashMap<>();
 
     /**
      * Register a Responsor as value with a String as key.
-     * @param keyword A String that will trigger corresponding Responsor to response.
+     *
      * @param responsor A Responsor that will be triggered by corresponding keyword.
+     * @param keyword   A String that will trigger corresponding Responsor to response.
      */
-    public void register(String keyword, Responsor responsor) {
+    public void register(Responsor responsor, Keyword keyword) {
         registry.put(keyword, responsor);
     }
 
     /**
      * Register a Responsor with multiple keywords.
-     * @param keywords A list of strings that will trigger corresponding Responsor to response.
+     *
      * @param responsor A Responsor that will be triggered by corresponding keywords.
+     * @param keywords  A list of strings that will trigger corresponding Responsor to response.
      */
-    public void register(List<String> keywords, Responsor responsor) {
-        for (String keyword : keywords) {
-            register(keyword, responsor);
+    public void register(Responsor responsor, List<Keyword> keywords) {
+        for (Keyword keyword : keywords) {
+            register(responsor, keyword);
         }
+    }
+
+    public void register(Responsor responsor, Keyword... keywords) {
+        register(responsor, List.of(keywords));
     }
 
     /**
@@ -38,7 +45,7 @@ public class ResponsorRegistry {
      * @param keyword A single word.
      * @return The corresponding Responsor, or UnknownResponsor if a Responsor can not be found.
      */
-    public Responsor getResponsor(String keyword) {
-        return registry.getOrDefault(keyword, new UnknownResponsor(keyword));
+    public Responsor getResponsor(Keyword keyword) {
+        return registry.getOrDefault(keyword, new UnknownResponsor(keyword.name().toLowerCase()));
     }
 }
