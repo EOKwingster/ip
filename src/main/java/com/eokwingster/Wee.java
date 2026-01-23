@@ -1,8 +1,10 @@
 package com.eokwingster;
 
 import com.eokwingster.data.ChatData;
-import com.eokwingster.responsors.*;
+import com.eokwingster.responsor.*;
+import com.eokwingster.responsor.responsors.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,7 +35,7 @@ public class Wee {
             String input = scanner.nextLine();
             Response response = wee.getResponseFromInput(input);
             response.say();
-            if (response.tag() == 1) {
+            if (response.tags().contains(Response.Tag.Exit)) {
                 break;
             }
         }
@@ -44,7 +46,16 @@ public class Wee {
      * @return Response of this input
      */
     private Response getResponseFromInput(String input) {
-        return responsorRegistry.getResponse(input, chatData);
+        List<Step> steps = Step.listOf(input);
+        Response response = Response.of();
+        for (Step step : steps) {
+            Responsor responsor = responsorRegistry.getResponsor(step.keyword);
+            response = responsor.response(steps, chatData, response);
+            if (response.tags().contains(Response.Tag.Final)) {
+                break;
+            }
+        }
+        return response;
     }
 
     /**
@@ -55,10 +66,26 @@ public class Wee {
         ResponsorRegistry responsorRegistry = new ResponsorRegistry();
         responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
         responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
-        responsorRegistry.register("add", new AddTaskResponsor());
         responsorRegistry.register("list", new TaskListResponsor());
         responsorRegistry.register("mark", new TaskDoneStatusResponsor(true));
         responsorRegistry.register("unmark", new TaskDoneStatusResponsor(false));
         return new Wee(responsorRegistry,  new ChatData());
+    }
+
+    public record Step(String keyword, String argument) {
+        public static Step of(String command, String argument) {
+            return new Step(command, argument);
+        }
+
+        public static Step of(String stepInput) {
+            String[] step = stepInput.split(" ", 2);
+            String command = step[0];
+            String argument = step.length > 1 ? step[1] : "";
+            return of(command, argument);
+        }
+
+        public static List<Step> listOf(String input) {
+            return Arrays.stream(input.split(" /")).map(Step::of).toList();
+        }
     }
 }

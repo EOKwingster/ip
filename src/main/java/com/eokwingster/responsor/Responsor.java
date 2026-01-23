@@ -1,6 +1,9 @@
-package com.eokwingster.responsors;
+package com.eokwingster.responsor;
 
+import com.eokwingster.Wee;
 import com.eokwingster.data.ChatData;
+
+import java.util.List;
 
 /**
  * define the universal response behavior。
@@ -9,9 +12,10 @@ import com.eokwingster.data.ChatData;
 public interface Responsor {
     /**
      * The response logic of this Responsor
-     * @param input The String message that user inputs
+     * @param steps List of steps inside user input
      * @param chatData the data stored in current chat
+     * @param preResponse the response given by previous responsors
      * @return Response messages as a list of String, each element is one line.
      */
-    Response response(String input, ChatData chatData);
+    Response response(List<Wee.Step> steps, ChatData chatData, Response preResponse);
 }
