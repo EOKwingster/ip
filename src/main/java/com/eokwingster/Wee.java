@@ -2,6 +2,7 @@ package com.eokwingster;
 
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
+import com.eokwingster.data.task.TaskType;
 import com.eokwingster.responsor.*;
 import com.eokwingster.responsor.responsors.*;
 
@@ -66,6 +67,9 @@ public class Wee {
         ResponsorRegistry responsorRegistry = new ResponsorRegistry();
         responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
         responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
+        responsorRegistry.register("todo", new AddTaskResponsor(TaskType.ToDo));
+        responsorRegistry.register("deadline", new AddTaskResponsor(TaskType.Deadline));
+        responsorRegistry.register("event", new AddTaskResponsor(TaskType.Event));
         responsorRegistry.register("list", new TaskListResponsor());
         responsorRegistry.register("mark", new TaskDoneStatusResponsor(true));
         responsorRegistry.register("unmark", new TaskDoneStatusResponsor(false));

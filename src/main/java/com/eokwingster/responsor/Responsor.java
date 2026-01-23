@@ -1,6 +1,6 @@
 package com.eokwingster.responsor;
 
-import com.eokwingster.Wee;
+import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 
 import java.util.List;
@@ -12,10 +12,11 @@ import java.util.List;
 public interface Responsor {
     /**
      * The response logic of this Responsor
-     * @param steps List of steps inside user input
+     * @param argument the argument after keyword
      * @param chatData the data stored in current chat
-     * @param preResponse the response given by previous responsors
+     * @param builtResponse the response given by previous responsors in this command line
+     * @param steps list of steps inside user input
      * @return Response messages as a list of String, each element is one line.
      */
-    Response response(List<Wee.Step> steps, ChatData chatData, Response preResponse);
+    Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps);
 }

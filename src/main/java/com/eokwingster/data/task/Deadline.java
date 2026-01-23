@@ -3,7 +3,7 @@ package com.eokwingster.data.task;
 public class Deadline extends Task{
     protected final String endTime;
 
-    protected Deadline(String description, String endTime) {
+    public Deadline(String description, String endTime) {
         super(description);
         this.endTime = endTime;
     }

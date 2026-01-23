@@ -16,7 +16,6 @@ public class Event extends Deadline {
     @Override
     public String toString() {
         String deadlineString = super.toString();
-        String taskString = deadlineString.substring(deadlineString.indexOf("("));
-        return taskString + String.format("from: %s to: %s", beginTime, endTime);
+        return deadlineString.replace("by", String.format("from: %s to", beginTime));
     }
 }

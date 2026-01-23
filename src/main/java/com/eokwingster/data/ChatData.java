@@ -1,5 +1,6 @@
 package com.eokwingster.data;
 
+import com.eokwingster.data.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,5 +16,9 @@ public class ChatData {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public void reset() {
+        tasks.clear();
     }
 }
