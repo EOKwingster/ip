@@ -3,15 +3,15 @@ package com.eokwingster.responsor.responsors;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.*;
-import com.eokwingster.responsor.Response;
+import com.eokwingster.response.Response;
 import com.eokwingster.responsor.Responsor;
 
 import java.util.List;
 
-public class AddTaskResponsor implements Responsor {
+public class TaskAddResponsor implements Responsor {
     private final TaskType taskType;
 
-    public AddTaskResponsor(TaskType taskType) {
+    public TaskAddResponsor(TaskType taskType) {
         this.taskType = taskType;
     }
 

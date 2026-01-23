@@ -1,4 +1,4 @@
-package com.eokwingster.responsor;
+package com.eokwingster.response;
 
 import com.eokwingster.Wee;
 
@@ -13,8 +13,8 @@ import java.util.Set;
  * @param commandN the number of commands have been processed to output this response
  * @param tags set of tags that label special status of responses
  */
-public record Response(List<String> messages, List<Integer> stepStartPoints, int commandN, Set<Tag> tags) {
-    public Response(List<String> messages, List<Integer> stepStartPoints, int commandN, Set<Tag> tags) {
+public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoints, int commandN, Set<Tag> tags) {
+    public Response(List<DynamicMessage> messages, List<Integer> stepStartPoints, int commandN, Set<Tag> tags) {
         this.messages = List.copyOf(messages);
         this.stepStartPoints = stepStartPoints;
         this.commandN = commandN;
@@ -26,7 +26,7 @@ public record Response(List<String> messages, List<Integer> stepStartPoints, int
     }
 
     public static class Builder {
-        private List<String> messages;
+        private List<DynamicMessage> messages;
         private List<Integer> stepStartPoints;
         private int commandN;
         private Set<Tag> tags;
@@ -44,7 +44,7 @@ public record Response(List<String> messages, List<Integer> stepStartPoints, int
         }
 
         public Builder withMessages(List<String> messages) {
-            this.messages = new ArrayList<>(messages);
+            this.messages = new ArrayList<>(messages.stream().map(DynamicMessage::new).toList());
             return this;
         }
 
@@ -52,8 +52,14 @@ public record Response(List<String> messages, List<Integer> stepStartPoints, int
             return withMessages(List.of(messages));
         }
 
+        public Builder withMessage(String format, Object... args) {
+            this.messages = new ArrayList<>();
+            this.messages.add(new DynamicMessage(format, args));
+            return this;
+        }
+
         public Builder appendMessages(List<String> messages) {
-            this.messages.addAll(messages);
+            this.messages.addAll(messages.stream().map(DynamicMessage::new).toList());
             return this;
         }
 
@@ -61,15 +67,18 @@ public record Response(List<String> messages, List<Integer> stepStartPoints, int
             return appendMessages(List.of(messages));
         }
 
-        public Builder withMessageIfHas(int i, String message) {
-            if (i >= 0 && i < messages.size()) {
-                this.messages.set(i, message);
-            }
+        public Builder appendMessage(String format, Object... args) {
+            this.messages.add(new DynamicMessage(format, args));
             return this;
         }
 
-        public Builder withLastMessageIfHas(String message) {
-            return withMessageIfHas(messages.size() - 1, message);
+        public Builder withMessageAt(int i, String format, Object... args) {
+            this.messages.set(i, new DynamicMessage(format, args));
+            return this;
+        }
+
+        public Builder withMessageAtLast(String format, Object... args) {
+            return withMessageAt(stepStartPoints.size() - 1, format, args);
         }
 
         public Builder addTags(Tag... tags) {
@@ -93,6 +102,10 @@ public record Response(List<String> messages, List<Integer> stepStartPoints, int
             this.stepStartPoints.add(messages.size());
         }
 
+        public void removeLastStepStartPoint() {
+            this.stepStartPoints.remove(stepStartPoints.size() - 1);
+        }
+
         public Response build() {
             return new Response(messages, stepStartPoints, commandN, tags);
         }
@@ -114,13 +127,14 @@ public record Response(List<String> messages, List<Integer> stepStartPoints, int
             prefix += "│";
             prefix += stepStartPoints.contains(i) ? stepStartPoint : " ".repeat(stepStartPoint.length());
             prefix += " ";
-            stringBuilder.append(prefix).append(messages.get(i)).append("\n");
+            stringBuilder.append(prefix).append(String.format("%s", messages.get(i))).append("\n");
         }
         System.out.println(stringBuilder);
     }
 
     public enum Tag {
         Exit,
-        Final
+        Final,
+        Modifier
     }
 }

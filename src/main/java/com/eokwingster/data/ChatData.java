@@ -9,9 +9,19 @@ import java.util.List;
  */
 public class ChatData {
     private final List<Task> tasks = new ArrayList<>();
+    private int focusingTaskIndex = -1;
+
+    public Task getFocusingTask() {
+        return tasks.get(focusingTaskIndex);
+    }
+
+    public void setFocusingTaskIndex(int focusingTaskIndex) {
+        this.focusingTaskIndex = focusingTaskIndex;
+    }
 
     public void addTask(Task task) {
         tasks.add(task);
+        setFocusingTaskIndex(tasks.size() - 1);
     }
 
     public List<Task> getTasks() {
@@ -20,5 +30,6 @@ public class ChatData {
 
     public void reset() {
         tasks.clear();
+        focusingTaskIndex = -1;
     }
 }

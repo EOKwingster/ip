@@ -3,7 +3,7 @@ package com.eokwingster.responsor.responsors;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.Task;
-import com.eokwingster.responsor.Response;
+import com.eokwingster.response.Response;
 import com.eokwingster.responsor.Responsor;
 
 import java.util.List;
