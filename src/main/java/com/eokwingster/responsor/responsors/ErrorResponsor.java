@@ -16,6 +16,6 @@ public class ErrorResponsor implements Responsor {
 
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        return builtResponse.withMessages(errorMessage).addTags(Response.Tag.Final);
+        return builtResponse.appendMessage(errorMessage);
     }
 }

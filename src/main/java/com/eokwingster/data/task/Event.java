@@ -1,10 +1,14 @@
 package com.eokwingster.data.task;
 
 public class Event extends Deadline {
-    private final String beginTime;
+    private String beginTime;
 
     public Event(String description, String beginTime, String endTime) {
         super(description, endTime);
+        this.beginTime = beginTime;
+    }
+
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 

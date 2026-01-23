@@ -22,11 +22,13 @@ public class TaskAddResponsor implements Responsor {
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
         Task task = switch (taskType) {
-            case ToDo -> new ToDo(argument);
-            case Deadline -> new Deadline(argument, null);
-            case Event ->  new Event(argument, null, null);
+            case TO_DO -> new ToDo(argument);
+            case DEADLINE -> new Deadline(argument, null);
+            case EVENT ->  new Event(argument, null, null);
         };
         chatData.addTask(task);
-        return builtResponse.appendMessages("Task added:", "  " + task, "Now you have " + chatData.getTasks().size() + " tasks.");
+        return builtResponse.appendMessage("Task added:")
+                .appendMessage("  %s", task)
+                .appendMessage("Now you have " + chatData.getTasks().size() + " tasks.");
     }
 }

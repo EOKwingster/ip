@@ -6,7 +6,8 @@ public enum Keyword {
     TODO, DEADLINE, EVENT,
     LIST,
     MARK, UNMARK,
-    FROM(true);
+    FROM(true), TO(true), BY(true),
+    UNKNOWN;
     private final boolean isModifier;
 
     Keyword(boolean isModifier) {
@@ -19,5 +20,11 @@ public enum Keyword {
 
     public boolean isModifier() {
         return this.isModifier;
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
     }
 }

@@ -51,7 +51,7 @@ public class Wee {
     private Response getResponseFromInput(String input) {
         List<Step> steps = Step.listOf(input);
         Response.Builder response = Response.builder();
-        Responsor responsor = new UnknownResponsor("");
+        Responsor responsor;
         Keyword lastRootKeyword = null;
         for (Step step : steps) {
             // step label
@@ -66,27 +66,31 @@ public class Wee {
             try {
                 keyword = Keyword.valueOf(step.keyword().toUpperCase());
             } catch (NullPointerException | IllegalArgumentException e) {
-                keyword = null;
+                keyword = Keyword.UNKNOWN;
             }
 
             // record root responsor it the last responsor is and get new responsor
-            if (keyword != null) {
-                if (!keyword.isModifier()) {
-                    lastRootKeyword = keyword;
-                }
-                responsor = responsorRegistry.getResponsor(keyword);
-            } else {
+            if (!keyword.isModifier()) {
+                lastRootKeyword = keyword;
+            }
+            if (keyword == Keyword.UNKNOWN) {
                 responsor = new UnknownResponsor(step.keyword());
+            } else {
+                responsor = responsorRegistry.getResponsor(keyword);
             }
 
-            //
+            // maintain modifier command structure
             if (responsor instanceof Modifier modifier) {
                 if (!modifier.getRootKeywords().contains(lastRootKeyword)) {
                     String errorMessage = String.format("%s command must follow commands: %s", keyword, modifier.getRootKeywords());
                     responsor = new ErrorResponsor(errorMessage);
                 }
             }
+
+            // get response
             response = responsor.response(step.argument(), chatData, response, steps).withNextCommandN();
+
+            //terminate subsequent responses if final tag
             if (response.hasTags(Response.Tag.Final)) {
                 break;
             }
@@ -109,6 +113,7 @@ public class Wee {
         responsorRegistry.register(new TaskDoneStatusResponsor(true), Keyword.MARK);
         responsorRegistry.register(new TaskDoneStatusResponsor(false), Keyword.UNMARK);
         responsorRegistry.register(new TaskBeginTimeResponsor(), Keyword.FROM);
+        responsorRegistry.register(new TaskEndTimeResponsor(), Keyword.BY, Keyword.TO);
         return new Wee(responsorRegistry,  new ChatData());
     }
 }
