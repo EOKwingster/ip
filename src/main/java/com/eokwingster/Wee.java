@@ -3,6 +3,7 @@ package com.eokwingster;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.TaskType;
+import com.eokwingster.response.Response;
 import com.eokwingster.responsor.*;
 import com.eokwingster.responsor.responsors.*;
 
@@ -49,9 +50,24 @@ public class Wee {
     private Response getResponseFromInput(String input) {
         List<Step> steps = Step.listOf(input);
         Response.Builder response = Response.builder();
+        Responsor responsor = new UnknownResponsor("");
+        Responsor lastRootResponsor = null;
         for (Step step : steps) {
+            if (response.hasTags(Response.Tag.Modifier)) {
+                response.removeLastStepStartPoint();
+                response.removeTags(Response.Tag.Modifier);
+            }
             response.markStepStartPoint();
-            Responsor responsor = responsorRegistry.getResponsor(step.keyword());
+            if (!(responsor instanceof Modifier)) {
+                lastRootResponsor = responsor;
+            }
+            responsor = responsorRegistry.getResponsor(step.keyword());
+            if (responsor instanceof Modifier modifier) {
+                if (!modifier.getRootResponsors().contains(lastRootResponsor.getClass())) {
+                    String errorMessage = String.format("%s command must follow commands: %s", step.keyword(), modifier.getRootResponsors());
+                    responsor = new ErrorResponsor(errorMessage);
+                }
+            }
             response = responsor.response(step.argument(), chatData, response, steps).withNextCommandN();
             if (response.hasTags(Response.Tag.Final)) {
                 break;
@@ -68,9 +84,9 @@ public class Wee {
         ResponsorRegistry responsorRegistry = new ResponsorRegistry();
         responsorRegistry.register(List.of("new", "hi"), new StartChatResponsor());
         responsorRegistry.register(List.of("exit", "bye"), new ExitChatResponsor());
-        responsorRegistry.register("todo", new AddTaskResponsor(TaskType.ToDo));
-        responsorRegistry.register("deadline", new AddTaskResponsor(TaskType.Deadline));
-        responsorRegistry.register("event", new AddTaskResponsor(TaskType.Event));
+        responsorRegistry.register("todo", new TaskAddResponsor(TaskType.ToDo));
+        responsorRegistry.register("deadline", new TaskAddResponsor(TaskType.Deadline));
+        responsorRegistry.register("event", new TaskAddResponsor(TaskType.Event));
         responsorRegistry.register("list", new TaskListResponsor());
         responsorRegistry.register("mark", new TaskDoneStatusResponsor(true));
         responsorRegistry.register("unmark", new TaskDoneStatusResponsor(false));
