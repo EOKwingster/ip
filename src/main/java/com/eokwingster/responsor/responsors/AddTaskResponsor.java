@@ -27,6 +27,6 @@ public class AddTaskResponsor implements Responsor {
             case Event ->  new Event(argument, null, null);
         };
         chatData.addTask(task);
-        return builtResponse.appendMessages("Task added: " + task);
+        return builtResponse.appendMessages("Task added:", "  " + task, "Now you have " + chatData.getTasks().size() + " tasks.");
     }
 }

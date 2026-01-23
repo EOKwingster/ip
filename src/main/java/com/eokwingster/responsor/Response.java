@@ -13,9 +13,10 @@ import java.util.Set;
  * @param commandN the number of commands have been processed to output this response
  * @param tags set of tags that label special status of responses
  */
-public record Response(List<String> messages, int commandN, Set<Tag> tags) {
-    public Response(List<String> messages, int commandN, Set<Tag> tags) {
+public record Response(List<String> messages, List<Integer> stepStartPoints, int commandN, Set<Tag> tags) {
+    public Response(List<String> messages, List<Integer> stepStartPoints, int commandN, Set<Tag> tags) {
         this.messages = List.copyOf(messages);
+        this.stepStartPoints = stepStartPoints;
         this.commandN = commandN;
         this.tags = Set.copyOf(tags);
     }
@@ -26,11 +27,13 @@ public record Response(List<String> messages, int commandN, Set<Tag> tags) {
 
     public static class Builder {
         private List<String> messages;
+        private List<Integer> stepStartPoints;
         private int commandN;
         private Set<Tag> tags;
 
         private Builder() {
             messages = new ArrayList<>();
+            stepStartPoints = new ArrayList<>();
             commandN = 0;
             tags = new HashSet<>();
         }
@@ -83,20 +86,34 @@ public record Response(List<String> messages, int commandN, Set<Tag> tags) {
             return this.tags.containsAll(List.of(tags));
         }
 
+        /**
+         * mark next line of message the start point of a step
+         */
+        public void markStepStartPoint() {
+            this.stepStartPoints.add(messages.size());
+        }
+
         public Response build() {
-            return new Response(messages, commandN, tags);
+            return new Response(messages, stepStartPoints, commandN, tags);
         }
     }
 
     /**
-     * Formats and prints messages line by line to the console with the bot name in front of the first line
+     * Formats and prints messages line by line to the console.
+     * The first line will have chatbot name
+     * Every line will have a vertical line before all marks.
+     * Evert start line of a step will have a ">>" mark.
      */
     public void say() {
-        String speaker = Wee.NAME + " >> ";
-        String indentation = " ".repeat(speaker.length());
+        String stepStartPoint = ">>";
+        String firstLine = Wee.NAME + ": ";
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < messages.size(); i++) {
-            String prefix = i == 0 ? speaker : indentation;
+            String prefix = "";
+            prefix += i == 0 ? firstLine : " ".repeat(firstLine.length());
+            prefix += "│";
+            prefix += stepStartPoints.contains(i) ? stepStartPoint : " ".repeat(stepStartPoint.length());
+            prefix += " ";
             stringBuilder.append(prefix).append(messages.get(i)).append("\n");
         }
         System.out.println(stringBuilder);
@@ -104,7 +121,6 @@ public record Response(List<String> messages, int commandN, Set<Tag> tags) {
 
     public enum Tag {
         Exit,
-        Final,
-        StepFinished
+        Final
     }
 }

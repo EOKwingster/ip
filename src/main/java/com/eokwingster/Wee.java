@@ -50,6 +50,7 @@ public class Wee {
         List<Step> steps = Step.listOf(input);
         Response.Builder response = Response.builder();
         for (Step step : steps) {
+            response.markStepStartPoint();
             Responsor responsor = responsorRegistry.getResponsor(step.keyword());
             response = responsor.response(step.argument(), chatData, response, steps).withNextCommandN();
             if (response.hasTags(Response.Tag.Final)) {
