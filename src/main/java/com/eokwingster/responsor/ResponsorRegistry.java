@@ -1,14 +1,14 @@
-package com.eokwingster.responsors;
+package com.eokwingster.responsor;
 
-import com.eokwingster.data.ChatData;
+import com.eokwingster.responsor.responsors.UnknownResponsor;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * The registry handle the connection between user input keywords and com.eokwingster.responsors by a Map.
- * All com.eokwingster.responsors should be registered in at least one ResponsorRegistry.
+ * The registry handle the connection between user input keywords and responsors by a Map.
+ * All responsors should be registered in at least one ResponsorRegistry.
  */
 public class ResponsorRegistry {
     private final Map<String, Responsor> registry = new HashMap<>();
@@ -34,14 +34,11 @@ public class ResponsorRegistry {
     }
 
     /**
-     * Get the corresponding Responsor from an input.
-     * @param input user input.
-     * @return The corresponding Responsor, or AddTaskResponsor if a Responsor can not be found.
+     * Get the corresponding Responsor from a keyword.
+     * @param keyword A single word.
+     * @return The corresponding Responsor, or UnknownResponsor if a Responsor can not be found.
      */
-    public Response getResponse(String input, ChatData chatData) {
-        String[] splitInput = input.split(" ", 2);
-        String keyword = splitInput[0];
-        String inputLeft = splitInput.length > 1 ? splitInput[1] : "";
-        return registry.getOrDefault(keyword, new UnknownResponsor()).response(inputLeft, chatData);
+    public Responsor getResponsor(String keyword) {
+        return registry.getOrDefault(keyword, new UnknownResponsor(keyword));
     }
 }
