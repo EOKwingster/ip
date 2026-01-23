@@ -2,41 +2,90 @@ package com.eokwingster.responsor;
 
 import com.eokwingster.Wee;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Set;
 
 /**
  * Response output by Responsors
  * @param messages Strings that will be printed
  * @param commandN the number of commands have been processed to output this response
- * @param tags list of tags that label special status of responses
+ * @param tags set of tags that label special status of responses
  */
-public record Response(List<String> messages, int commandN, List<Tag> tags) {
-    public Response(List<String> messages, int commandN, List<Tag> tags) {
+public record Response(List<String> messages, int commandN, Set<Tag> tags) {
+    public Response(List<String> messages, int commandN, Set<Tag> tags) {
         this.messages = List.copyOf(messages);
         this.commandN = commandN;
-        this.tags = List.copyOf(tags);
+        this.tags = Set.copyOf(tags);
     }
 
-    public static Response of(List<String> messages, int commandN, List<Tag> tags) {
-        return new Response(messages, commandN, tags);
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public static Response of() {
-        return of(List.of(), 0, List.of());
-    }
+    public static class Builder {
+        private List<String> messages;
+        private int commandN;
+        private Set<Tag> tags;
 
-    public Response update() {
-        return of(messages, commandN + 1, tags);
-    }
+        private Builder() {
+            messages = new ArrayList<>();
+            commandN = 0;
+            tags = new HashSet<>();
+        }
 
-    public Response update(Tag... tags) {
-        return of(messages, commandN, Stream.concat(this.tags.stream(), Arrays.stream(tags)).toList());
-    }
+        public Builder withNextCommandN() {
+            commandN++;
+            return this;
+        }
 
-    public Response replace(List<String> messages) {
-        return of(messages, commandN, tags);
+        public Builder withMessages(List<String> messages) {
+            this.messages = new ArrayList<>(messages);
+            return this;
+        }
+
+        public Builder withMessages(String... messages) {
+            return withMessages(List.of(messages));
+        }
+
+        public Builder appendMessages(List<String> messages) {
+            this.messages.addAll(messages);
+            return this;
+        }
+
+        public Builder appendMessages(String... messages) {
+            return appendMessages(List.of(messages));
+        }
+
+        public Builder withMessageIfHas(int i, String message) {
+            if (i >= 0 && i < messages.size()) {
+                this.messages.set(i, message);
+            }
+            return this;
+        }
+
+        public Builder withLastMessageIfHas(String message) {
+            return withMessageIfHas(messages.size() - 1, message);
+        }
+
+        public Builder addTags(Tag... tags) {
+            this.tags.addAll(List.of(tags));
+            return this;
+        }
+
+        public Builder removeTags(Tag... tags) {
+            List.of(tags).forEach(this.tags::remove);
+            return this;
+        }
+
+        public boolean hasTags(Tag... tags) {
+            return this.tags.containsAll(List.of(tags));
+        }
+
+        public Response build() {
+            return new Response(messages, commandN, tags);
+        }
     }
 
     /**
@@ -55,6 +104,7 @@ public record Response(List<String> messages, int commandN, List<Tag> tags) {
 
     public enum Tag {
         Exit,
-        Final
+        Final,
+        StepFinished
     }
 }
