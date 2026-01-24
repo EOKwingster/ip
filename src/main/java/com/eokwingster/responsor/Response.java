@@ -68,11 +68,12 @@ public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoi
                     .range(0, warnings.size())
                     .boxed()
                     .map(i -> (i == 0 ? "!!Warning: " : "           ") + warnings.get(i))
-                    .toList());
+                    .toList()
+            ).addTags(Tag.Final);
         }
 
         public Builder appendWarning(String format, Object... args) {
-            return appendMessage("!!Warning: " + format, args);
+            return appendMessage("!!Warning: " + format, args).addTags(Tag.Final);
         }
 
         public Builder addTags(Tag... tags) {
