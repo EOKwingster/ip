@@ -1,7 +1,100 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+(WEE logo)
+
+
+
+
+
+Wee: |>> Hello! I'm Wee
+     |   What can I do for you?
+
+Wee: |>> Task added:
+     |     [T][ ] read book
+     |   Now you have 1 tasks.
+     |>> Task added:
+     |     [D][ ] return book (by: June 6th)
+     |   Now you have 2 tasks.
+     |>> Task added:
+     |     [E][ ]  (from: Aug 6th to: 4pm)
+     |   Now you have 3 tasks.
+     |>> Task added:
+     |     [T][ ] join sports club
+     |   Now you have 4 tasks.
+     |>> Task added:
+     |     [T][ ] borrow book
+     |   Now you have 5 tasks.
+     |>> Task in your list: 
+     |   1.[T][ ] read book
+     |   2.[D][ ] return book (by: June 6th)
+     |   3.[E][ ]  (from: Aug 6th to: 4pm)
+     |   4.[T][ ] join sports club
+     |   5.[T][ ] borrow book
+
+Wee: |>> This task has been marked done.
+     |      [T][X] read book
+     |>> This task has been marked done.
+     |      [D][X] return book (by: June 6th)
+     |>> This task has been marked done.
+     |      [T][X] join sports club
+     |>> Task in your list: 
+     |   1.[T][X] read book
+     |   2.[D][X] return book (by: June 6th)
+     |   3.[E][ ]  (from: Aug 6th to: 4pm)
+     |   4.[T][X] join sports club
+     |   5.[T][ ] borrow book
+     |>> This task has been unmarked done.
+     |      [D][ ] return book (by: June 6th)
+     |>> Task in your list: 
+     |   1.[T][X] read book
+     |   2.[D][ ] return book (by: June 6th)
+     |   3.[E][ ]  (from: Aug 6th to: 4pm)
+     |   4.[T][X] join sports club
+     |   5.[T][ ] borrow book
+
+Wee: |>> Hello! I'm Wee
+     |   What can I do for you?
+
+Wee: |>> Task added:
+     |     [D][ ] d1 (by: null)
+     |   Now you have 1 tasks.
+     |>> Task added:
+     |     [D][ ] d2 (by: 4pm)
+     |   Now you have 2 tasks.
+     |>> Task added:
+     |     [E][ ] e1 (from: null to: null)
+     |   Now you have 3 tasks.
+     |>> Task added:
+     |     [E][ ] e2 (from: 2pm to: null)
+     |   Now you have 4 tasks.
+     |>> Task added:
+     |     [E][ ] e3 (from: null to: 4pm)
+     |   Now you have 5 tasks.
+     |>> Task added:
+     |     [E][ ] e4 (from: null to: 4pm)
+     |   Now you have 6 tasks.
+     |>> Task in your list: 
+     |   1.[D][ ] d1 (by: null)
+     |   2.[D][ ] d2 (by: 4pm)
+     |   3.[E][ ] e1 (from: null to: null)
+     |   4.[E][ ] e2 (from: 2pm to: null)
+     |   5.[E][ ] e3 (from: null to: 4pm)
+     |   6.[E][ ] e4 (from: null to: 4pm)
+
+Wee: |>> Hello! I'm Wee
+     |   What can I do for you?
+
+Wee: |>> Task added:
+     |     [T][ ] t1
+     |   Now you have 1 tasks.
+     |>> Task added:
+     |     [D][ ] d1 (by: null)
+     |   Now you have 2 tasks.
+     |>> from command must follow commands: [event]
+     |>> I don't understand: deedline 
+     |   What are you talking about?
+     |>> by command must follow commands: [deadline, event]
+     |>> Task in your list: 
+     |   1.[T][ ] t1
+     |   2.[D][ ] d1 (by: null)
+
+Wee: |>> Bye. Hope to see you again soon!
 

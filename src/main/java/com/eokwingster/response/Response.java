@@ -124,7 +124,7 @@ public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoi
         for (int i = 0; i < messages.size(); i++) {
             String prefix = "";
             prefix += i == 0 ? firstLine : " ".repeat(firstLine.length());
-            prefix += "│";
+            prefix += "|";
             prefix += stepStartPoints.contains(i) ? stepStartPoint : " ".repeat(stepStartPoint.length());
             prefix += " ";
             stringBuilder.append(prefix).append(String.format("%s", messages.get(i))).append("\n");

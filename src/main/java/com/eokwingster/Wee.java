@@ -23,11 +23,11 @@ public class Wee {
 
     public static void main(String[] args) {
         String logo = """
-                ██     ██  ████████  ████████\s
-                ██     ██  ██        ██      \s
-                ██  █  ██  ██████    ██████  \s
-                ██ ███ ██  ██        ██      \s
-                 ███ ███   ████████  ████████
+                █   █  █████  █████
+                █   █  █      █
+                █ █ █  ████   ████
+                ██ ██  █      █
+                █   █  █████  █████
                 """;
         System.out.println(logo);
 
@@ -69,7 +69,7 @@ public class Wee {
                 keyword = Keyword.UNKNOWN;
             }
 
-            // record root responsor it the last responsor is and get new responsor
+            // record root keyword if the last keyword is, and get new responsor
             if (!keyword.isModifier()) {
                 lastRootKeyword = keyword;
             }
