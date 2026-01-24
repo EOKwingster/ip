@@ -15,7 +15,7 @@ public class TaskListResponsor implements Responsor {
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
         List<Task> tasks = chatData.getTasks();
-        builtResponse.appendMessages("Task in your list: ");
+        builtResponse.appendMessages("Task in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             builtResponse.appendMessages((i + 1) + "." + tasks.get(i));
         }
