@@ -56,8 +56,7 @@ public class Wee {
         for (Step step : steps) {
             // step label
             if (response.hasTags(Response.Tag.Modifier)) {
-                response.removeLastStepStartPoint();
-                response.removeTags(Response.Tag.Modifier);
+                response.removeLastStepStartPoint().removeTags(Response.Tag.Modifier);
             }
             response.markStepStartPoint();
 

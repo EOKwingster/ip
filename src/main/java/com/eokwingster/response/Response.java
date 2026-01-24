@@ -43,21 +43,6 @@ public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoi
             return this;
         }
 
-        public Builder withMessages(List<String> messages) {
-            this.messages = new ArrayList<>(messages.stream().map(DynamicMessage::new).toList());
-            return this;
-        }
-
-        public Builder withMessages(String... messages) {
-            return withMessages(List.of(messages));
-        }
-
-        public Builder withMessage(String format, Object... args) {
-            this.messages = new ArrayList<>();
-            this.messages.add(new DynamicMessage(format, args));
-            return this;
-        }
-
         public Builder appendMessages(List<String> messages) {
             this.messages.addAll(messages.stream().map(DynamicMessage::new).toList());
             return this;
@@ -70,15 +55,6 @@ public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoi
         public Builder appendMessage(String format, Object... args) {
             this.messages.add(new DynamicMessage(format, args));
             return this;
-        }
-
-        public Builder withMessageAt(int i, String format, Object... args) {
-            this.messages.set(i, new DynamicMessage(format, args));
-            return this;
-        }
-
-        public Builder withMessageAtLast(String format, Object... args) {
-            return withMessageAt(stepStartPoints.size() - 1, format, args);
         }
 
         public Builder addTags(Tag... tags) {
@@ -98,12 +74,14 @@ public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoi
         /**
          * mark next line of message the start point of a step
          */
-        public void markStepStartPoint() {
+        public Builder markStepStartPoint() {
             this.stepStartPoints.add(messages.size());
+            return this;
         }
 
-        public void removeLastStepStartPoint() {
+        public Builder removeLastStepStartPoint() {
             this.stepStartPoints.remove(stepStartPoints.size() - 1);
+            return this;
         }
 
         public Response build() {
