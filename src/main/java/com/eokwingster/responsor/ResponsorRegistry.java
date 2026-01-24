@@ -1,7 +1,6 @@
 package com.eokwingster.responsor;
 
 import com.eokwingster.command.Keyword;
-import com.eokwingster.responsor.responsors.UnknownResponsor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,9 +42,9 @@ public class ResponsorRegistry {
     /**
      * Get the corresponding Responsor from a keyword.
      * @param keyword A single word.
-     * @return The corresponding Responsor, or UnknownResponsor if a Responsor can not be found.
+     * @return The corresponding Responsor.
      */
     public Responsor getResponsor(Keyword keyword) {
-        return registry.getOrDefault(keyword, new UnknownResponsor(keyword.name().toLowerCase()));
+        return registry.get(keyword);
     }
 }

@@ -3,7 +3,7 @@ package com.eokwingster.responsor.responsors;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.Task;
-import com.eokwingster.response.Response;
+import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.Responsor;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class TaskDoneStatusResponsor implements Responsor {
             index = Integer.parseInt(argument);
             task = tasks.get(index - 1);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return builtResponse.appendMessages(String.format("Invalid task number: %s", argument));
+            return builtResponse.appendWarning(String.format("Invalid task number: %s", argument));
         }
         task.setIsDone(isDone);
         return builtResponse.appendMessages(String.format("This task has been %s done.", isDone ? "marked" : "unmarked"))

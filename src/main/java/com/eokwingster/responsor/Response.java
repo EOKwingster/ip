@@ -1,11 +1,13 @@
-package com.eokwingster.response;
+package com.eokwingster.responsor;
 
 import com.eokwingster.Wee;
+import com.eokwingster.util.DynamicMessage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
  * Response output by Responsors
@@ -43,9 +45,13 @@ public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoi
             return this;
         }
 
-        public Builder appendMessages(List<String> messages) {
-            this.messages.addAll(messages.stream().map(DynamicMessage::new).toList());
+        public Builder appendDynamicMessages(List<DynamicMessage> messages) {
+            this.messages.addAll(messages);
             return this;
+        }
+
+        public Builder appendMessages(List<String> messages) {
+            return appendDynamicMessages(messages.stream().map(DynamicMessage::new).toList());
         }
 
         public Builder appendMessages(String... messages) {
@@ -55,6 +61,18 @@ public record Response(List<DynamicMessage> messages, List<Integer> stepStartPoi
         public Builder appendMessage(String format, Object... args) {
             this.messages.add(new DynamicMessage(format, args));
             return this;
+        }
+
+        public Builder appendWarnings(List<String> warnings) {
+            return appendMessages(IntStream
+                    .range(0, warnings.size())
+                    .boxed()
+                    .map(i -> (i == 0 ? "!!Warning: " : "           ") + warnings.get(i))
+                    .toList());
+        }
+
+        public Builder appendWarning(String format, Object... args) {
+            return appendMessage("!!Warning: " + format, args);
         }
 
         public Builder addTags(Tag... tags) {

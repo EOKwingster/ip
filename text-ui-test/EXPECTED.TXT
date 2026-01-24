@@ -88,10 +88,10 @@ Wee: |>> Task added:
      |>> Task added:
      |     [D][ ] d1 (by: null)
      |   Now you have 2 tasks.
-     |>> from command must follow commands: [event]
-     |>> I don't understand: deedline 
-     |   What are you talking about?
-     |>> by command must follow commands: [deadline, event]
+     |>> !!Warning: from command must follow commands: [event]
+     |>> !!Warning: I don't understand: deedline
+     |              What are you talking about?
+     |>> !!Warning: by command must follow commands: [deadline, event]
      |>> Task in your list: 
      |   1.[T][ ] t1
      |   2.[D][ ] d1 (by: null)

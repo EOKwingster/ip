@@ -4,7 +4,7 @@ import com.eokwingster.command.Keyword;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.HasEndTime;
-import com.eokwingster.response.Response;
+import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.Modifier;
 import com.eokwingster.responsor.Responsor;
 

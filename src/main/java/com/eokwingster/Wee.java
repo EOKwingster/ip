@@ -4,7 +4,7 @@ import com.eokwingster.command.Keyword;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.TaskType;
-import com.eokwingster.response.Response;
+import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.*;
 import com.eokwingster.responsor.responsors.*;
 
@@ -73,7 +73,7 @@ public class Wee {
                 lastRootKeyword = keyword;
             }
             if (keyword == Keyword.UNKNOWN) {
-                responsor = new UnknownResponsor(step.keyword());
+                responsor = ErrorResponsor.of("I don't understand: " + step, "What are you talking about?");
             } else {
                 responsor = responsorRegistry.getResponsor(keyword);
             }
@@ -81,8 +81,7 @@ public class Wee {
             // maintain modifier command structure
             if (responsor instanceof Modifier modifier) {
                 if (!modifier.getRootKeywords().contains(lastRootKeyword)) {
-                    String errorMessage = String.format("%s command must follow commands: %s", keyword, modifier.getRootKeywords());
-                    responsor = new ErrorResponsor(errorMessage);
+                    responsor = ErrorResponsor.of(String.format("%s command must follow commands: %s", keyword, modifier.getRootKeywords()));
                 }
             }
 

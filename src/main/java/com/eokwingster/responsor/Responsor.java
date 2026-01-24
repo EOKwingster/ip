@@ -2,7 +2,6 @@ package com.eokwingster.responsor;
 
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
-import com.eokwingster.response.Response;
 
 import java.util.List;
 

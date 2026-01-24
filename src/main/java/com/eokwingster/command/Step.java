@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public record Step(String keyword, String argument) {
-    public static Step of(String command, String argument) {
-        return new Step(command, argument);
+    public static Step of(String keyword, String argument) {
+        return new Step(keyword, argument);
     }
 
     public static Step of(String stepInput) {
@@ -17,5 +17,10 @@ public record Step(String keyword, String argument) {
 
     public static List<Step> listOf(String input) {
         return Arrays.stream(input.split(" /")).map(Step::of).toList();
+    }
+
+    @Override
+    public String toString() {
+        return keyword + " " + argument;
     }
 }

@@ -1,4 +1,4 @@
-package com.eokwingster.response;
+package com.eokwingster.util;
 
 import java.util.Formattable;
 import java.util.Formatter;
