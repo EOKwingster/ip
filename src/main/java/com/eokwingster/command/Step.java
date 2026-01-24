@@ -21,6 +21,9 @@ public record Step(String keyword, String argument) {
 
     @Override
     public String toString() {
+        if (argument.isEmpty()) {
+            return keyword;
+        }
         return keyword + " " + argument;
     }
 }
