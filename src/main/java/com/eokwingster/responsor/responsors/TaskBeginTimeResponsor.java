@@ -3,7 +3,7 @@ package com.eokwingster.responsor.responsors;
 import com.eokwingster.command.Keyword;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
-import com.eokwingster.data.task.Event;
+import com.eokwingster.data.task.HasBeginTime;
 import com.eokwingster.responsor.Modifier;
 import com.eokwingster.response.Response;
 import com.eokwingster.responsor.Responsor;
@@ -18,7 +18,7 @@ public class TaskBeginTimeResponsor implements Modifier, Responsor {
 
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        Event task = (Event) chatData.getFocusingTask();
+        HasBeginTime task = (HasBeginTime) chatData.getFocusingTask();
         task.setBeginTime(argument);
         return builtResponse;
     }

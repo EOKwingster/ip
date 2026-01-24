@@ -1,15 +1,33 @@
 package com.eokwingster.data.task;
 
-public class Event extends Deadline {
+public class Event extends Task implements HasBeginTime, HasEndTime {
     private String beginTime;
+    private String endTime;
 
     public Event(String description, String beginTime, String endTime) {
-        super(description, endTime);
+        super(description);
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+    }
+
+    @Override
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public void setBeginTime(String beginTime) {
-        this.beginTime = beginTime;
+    @Override
+    public String getBeginTime() {
+        return beginTime;
+    }
+
+    @Override
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public String getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -19,7 +37,6 @@ public class Event extends Deadline {
 
     @Override
     public String toString() {
-        String deadlineString = super.toString();
-        return deadlineString.replace("by", String.format("from: %s to", beginTime));
+        return super.toString() + String.format(" (from: %s to: %s)", beginTime, endTime);
     }
 }

@@ -1,6 +1,6 @@
 package com.eokwingster.data.task;
 
-public class Deadline extends Task{
+public class Deadline extends Task implements HasEndTime {
     protected String endTime;
 
     public Deadline(String description, String endTime) {
@@ -8,8 +8,14 @@ public class Deadline extends Task{
         this.endTime = endTime;
     }
 
+    @Override
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public String getEndTime() {
+        return endTime;
     }
 
     @Override
