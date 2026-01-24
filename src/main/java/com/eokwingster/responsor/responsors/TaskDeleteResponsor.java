@@ -8,29 +8,21 @@ import com.eokwingster.responsor.Responsor;
 
 import java.util.List;
 
-public class TaskDoneStatusResponsor implements Responsor {
-    private final boolean isDone;
-
-    public TaskDoneStatusResponsor(boolean isDone) {
-        this.isDone = isDone;
-    }
-
-    /**
-     * mark/unmark the task done depends on the isDone member variable
-     * @return mark/unmark message, or invalid task number warning.
-     */
+public class TaskDeleteResponsor implements Responsor {
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
         int index;
         Task task;
         try {
             index = Integer.parseInt(argument) - 1;
-            task = chatData.getTasks().get(index);
+            task = chatData.getTasks().remove(index);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return builtResponse.appendWarning(String.format("Invalid task number: %s, use /list to check available numbers", argument));
         }
-        task.setIsDone(isDone);
-        return builtResponse.appendMessages(String.format("This task has been %s done.", isDone ? "marked" : "unmarked"))
-                        .appendMessages("   " + task);
+        return builtResponse.appendMessages(
+                "This task has been removed:",
+                "  " + task,
+                "Now you have " + chatData.getTasks().size() + " tasks."
+        );
     }
 }

@@ -4,6 +4,7 @@ public enum Keyword {
     NEW, HI,
     EXIT, BYE,
     TODO, DEADLINE, EVENT,
+    DELETE,
     LIST,
     MARK, UNMARK,
     FROM(true), TO(true), BY(true),

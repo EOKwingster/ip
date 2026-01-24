@@ -112,6 +112,7 @@ public class Wee {
         responsorRegistry.register(new TaskDoneStatusResponsor(false), Keyword.UNMARK);
         responsorRegistry.register(new TaskBeginTimeResponsor(), Keyword.FROM);
         responsorRegistry.register(new TaskEndTimeResponsor(), Keyword.BY, Keyword.TO);
+        responsorRegistry.register(new TaskDeleteResponsor(), Keyword.DELETE);
         return new Wee(responsorRegistry,  new ChatData());
     }
 }
