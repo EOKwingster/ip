@@ -2,7 +2,8 @@ package com.eokwingster.responsor.responsors;
 
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
-import com.eokwingster.data.task.*;
+import com.eokwingster.data.task.Task;
+import com.eokwingster.data.task.TaskType;
 import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.Responsor;
 
