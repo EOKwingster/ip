@@ -5,7 +5,7 @@ import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.Task;
 import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.Responsor;
-import com.eokwingster.util.ArgumentParser;
+import com.eokwingster.command.ArgumentParser;
 
 import java.util.List;
 

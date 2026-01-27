@@ -1,4 +1,4 @@
-package com.eokwingster.util;
+package com.eokwingster.command;
 
 import com.eokwingster.data.ChatData;
 import com.eokwingster.responsor.Response;
