@@ -50,8 +50,10 @@ public class Wee {
             String input = scanner.nextLine();
             Response response = wee.getResponseFromInput(input);
             response.say();
-            wee.chatData.save();
-            if (response.tags().contains(Response.Tag.Exit)) {
+            if (response.tags().contains(Response.Tag.SAVE)) {
+                wee.chatData.save();
+            }
+            if (response.tags().contains(Response.Tag.EXIT)) {
                 break;
             }
         }

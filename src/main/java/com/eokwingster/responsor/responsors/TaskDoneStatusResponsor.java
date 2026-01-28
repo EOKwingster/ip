@@ -24,7 +24,8 @@ public class TaskDoneStatusResponsor implements Responsor {
         Task task = chatData.getTasks().get(Integer.parseInt(argument) - 1);
         task.setIsDone(isDone);
         builtResponse.appendMessages(String.format("This task has been %s done.", isDone ? "marked" : "unmarked"))
-                .appendMessages("   " + task);
+                .appendMessages("   " + task)
+                .addTags(Response.Tag.SAVE);
         return builtResponse;
     }
 }
