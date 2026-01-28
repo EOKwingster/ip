@@ -1,7 +1,8 @@
 package com.eokwingster.data;
 
+import com.eokwingster.data.taf.LocalDateTimeTAF;
 import com.eokwingster.data.task.Task;
-import com.eokwingster.data.taf.TaskTypeAdapterFactory;
+import com.eokwingster.data.taf.TaskTAF;
 import com.eokwingster.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,7 +21,8 @@ import java.util.List;
 public class ChatData {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapterFactory(new TaskTypeAdapterFactory())
+            .registerTypeAdapterFactory(new TaskTAF())
+            .registerTypeAdapterFactory(new LocalDateTimeTAF())
             .setPrettyPrinting()
             .create();
 
