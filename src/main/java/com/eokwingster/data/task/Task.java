@@ -13,7 +13,11 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    protected abstract TaskType type();
+    /**
+     * Get type in TaskType enum of this task class
+     * @return A TaskType
+     */
+    public abstract TaskType type();
 
     @Override
     public String toString() {

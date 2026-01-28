@@ -6,7 +6,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    protected TaskType type() {
+    public TaskType type() {
         return TaskType.TO_DO;
     }
 }

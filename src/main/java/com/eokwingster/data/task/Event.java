@@ -33,7 +33,7 @@ public class Event extends Task implements HasBeginTime, HasEndTime {
     }
 
     @Override
-    protected TaskType type() {
+    public TaskType type() {
         return TaskType.EVENT;
     }
 

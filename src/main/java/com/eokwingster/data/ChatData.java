@@ -1,7 +1,7 @@
 package com.eokwingster.data;
 
 import com.eokwingster.data.task.Task;
-import com.eokwingster.data.task.TaskAdapter;
+import com.eokwingster.data.taf.TaskTypeAdapterFactory;
 import com.eokwingster.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,6 +18,10 @@ import java.util.List;
  */
 public class ChatData {
     private static final Gson GSON = new GsonBuilder().registerTypeAdapter(Task.class, new TaskAdapter()).setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapterFactory(new TaskTypeAdapterFactory())
+            .setPrettyPrinting()
+            .create();
 
     private final List<Task> tasks = new ArrayList<>();
     private int focusingTaskIndex = -1;
