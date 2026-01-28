@@ -1,4 +1,8 @@
-<WEE logo>
+█   █  █████  █████
+█   █  █      █
+█ █ █  ████   ████
+██ ██  █      █
+█   █  █████  █████
 
 Wee: | Hello! I'm Wee
      | What can I do for you?

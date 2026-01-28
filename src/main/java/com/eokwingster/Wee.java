@@ -1,5 +1,6 @@
 package com.eokwingster;
 
+import com.eokwingster.client.UI;
 import com.eokwingster.command.CommandRegistry;
 import com.eokwingster.command.keyword.CommandRoot;
 import com.eokwingster.command.keyword.Keyword;
@@ -27,9 +28,11 @@ import java.util.Scanner;
 public class Wee {
     public static final String NAME = "Wee";
     private final ChatData chatData;
+    private final UI ui;
 
     private Wee() {
         chatData = new ChatData();
+        ui = new UI();
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException {
@@ -45,12 +48,12 @@ public class Wee {
         Wee wee = new Wee();
         wee.setUp();
         wee.chatData.load();
-        wee.getResponseFromInput("new").say();
+        wee.ui.display(wee.getResponseFromInput("new"));
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             Response response = wee.getResponseFromInput(input);
-            response.say();
+            wee.ui.display(response);
             if (response.tags().contains(Response.Tag.SAVE)) {
                 wee.chatData.save();
             }
