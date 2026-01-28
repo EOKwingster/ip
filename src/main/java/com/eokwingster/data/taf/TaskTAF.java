@@ -17,7 +17,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class TaskTypeAdapterFactory implements TypeAdapterFactory {
+public class TaskTAF implements TypeAdapterFactory {
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
         if (!Task.class.isAssignableFrom(typeToken.getRawType())) {
@@ -26,19 +26,19 @@ public class TaskTypeAdapterFactory implements TypeAdapterFactory {
 
         return (TypeAdapter<T>) new TypeAdapter<Task>() {
             @Override
-            public void write(JsonWriter out, Task value) throws IOException {
+            public void write(JsonWriter jsonWriter, Task task) throws IOException {
                 TypeAdapter<Task> delegate = (TypeAdapter<Task>) gson.getDelegateAdapter(
-                        TaskTypeAdapterFactory.this, TypeToken.get(value.getClass()));
+                        TaskTAF.this, TypeToken.get(task.getClass()));
 
-                JsonObject jsonObject = delegate.toJsonTree(value).getAsJsonObject();
-                jsonObject.addProperty("type", value.type().name());
+                JsonObject jsonObject = delegate.toJsonTree(task).getAsJsonObject();
+                jsonObject.addProperty("type", task.type().name());
 
-                gson.toJson(jsonObject, out);
+                gson.toJson(jsonObject, jsonWriter);
             }
 
             @Override
-            public Task read(JsonReader in) throws IOException {
-                JsonElement element = JsonParser.parseReader(in);
+            public Task read(JsonReader jsonReader) throws IOException {
+                JsonElement element = JsonParser.parseReader(jsonReader);
                 JsonObject jsonObject = element.getAsJsonObject();
 
                 String typeStr = jsonObject.get("type").getAsString();
@@ -50,7 +50,7 @@ public class TaskTypeAdapterFactory implements TypeAdapterFactory {
                     case EVENT -> Event.class;
                 };
 
-                return gson.getDelegateAdapter(TaskTypeAdapterFactory.this, TypeToken.get(targetClass))
+                return gson.getDelegateAdapter(TaskTAF.this, TypeToken.get(targetClass))
                         .fromJsonTree(jsonObject);
             }
         };
