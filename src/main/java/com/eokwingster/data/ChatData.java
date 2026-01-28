@@ -1,16 +1,7 @@
 package com.eokwingster.data;
 
-import com.eokwingster.data.taf.LocalDateTimeTAF;
 import com.eokwingster.data.task.Task;
-import com.eokwingster.data.taf.TaskTAF;
-import com.eokwingster.util.Utils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -30,21 +21,20 @@ public class ChatData {
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 59)
             .toFormatter(Locale.US);
     public static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("yyyy MMM dd hh:mm a", Locale.US);
-    private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapterFactory(new TaskTAF())
-            .registerTypeAdapterFactory(new LocalDateTimeTAF())
-            .setPrettyPrinting()
-            .create();
 
     private final List<Task> tasks = new ArrayList<>();
     private int focusingTaskIndex = -1;
 
+    /**
+     * Get the focusing task to be modified by modifier
+     * @return the task pointed by focusingTaskIndex
+     */
     public Task getFocusingTask() {
         return tasks.get(focusingTaskIndex);
     }
 
-    public void setFocusingTaskIndex(int focusingTaskIndex) {
-        this.focusingTaskIndex = focusingTaskIndex;
+    public void setFocusingTask(int index) {
+        this.focusingTaskIndex = index;
     }
 
     /**
@@ -53,11 +43,39 @@ public class ChatData {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        setFocusingTaskIndex(tasks.size() - 1);
+        setFocusingTask(tasks.size() - 1);
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    /**
+     * Get the task at an index
+     * @param index the index of the task to be returned
+     * @return the task with this index in the list
+     */
+    public Task getTaskAt(int index) {
+        return tasks.get(index);
+    }
+
+    /**
+     * @return the number of task
+     */
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
+    /**
+     * remove the task at an index
+     * @param index the index of the task to be removed
+     * @return the task removed
+     */
+    public Task removeTaskAt(int index) {
+        return tasks.remove(index);
+    }
+
+    /**
+     * clear the list of tasks to an empty list
+     */
+    public void clearTasks() {
+        tasks.clear();
     }
 
     /**
@@ -69,33 +87,10 @@ public class ChatData {
     }
 
     /**
-     * save chat data into JSON file
-     * @throws IOException
-     * @throws URISyntaxException
-     * @see Utils#getJarFolderPath()
+     * Copy data from another ChatData object
+     * @param data A ChatData object
      */
-    public void save() throws IOException, URISyntaxException {
-        String json = GSON.toJson(this);
-        Files.writeString(Utils.getJarFolderPath(), json);
-    }
-
-    /**
-     * load data from JSON file
-     * @throws IOException
-     * @throws URISyntaxException
-     * @see Utils#getJarFolderPath()
-     */
-    public void load() throws IOException, URISyntaxException {
-        try {
-            String json = Files.readString(Utils.getJarFolderPath());
-            ChatData data = GSON.fromJson(json, ChatData.class);
-            copy(data);
-        } catch (NoSuchFileException e) {
-            this.reset();
-        }
-    }
-
-    private void copy(ChatData data) {
+    public void copy(ChatData data) {
         this.tasks.clear();
         this.tasks.addAll(data.tasks);
     }

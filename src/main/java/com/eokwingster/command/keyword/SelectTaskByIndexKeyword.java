@@ -7,7 +7,7 @@ public abstract class SelectTaskByIndexKeyword implements Keyword {
     public void validateStep(String alias, String argument, ChatData chatData) throws IllegalArgumentException {
         try {
             int i = Integer.parseInt(argument) - 1;
-            if (chatData.getTasks().size() <= i || i < 0) {
+            if (chatData.getTaskCount() <= i || i < 0) {
                 throw new IllegalArgumentException(String.format("You don't have a task with this number: %s, use /list to list your tasks", argument));
             }
         } catch (NumberFormatException e) {

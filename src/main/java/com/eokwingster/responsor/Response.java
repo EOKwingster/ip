@@ -1,6 +1,5 @@
 package com.eokwingster.responsor;
 
-import com.eokwingster.Wee;
 import com.eokwingster.util.DynamicMessage;
 
 import java.util.ArrayList;
@@ -104,21 +103,6 @@ public record Response(List<DynamicMessage> messages, int commandN, Set<Tag> tag
         public Response build() {
             return new Response(messages, commandN, tags);
         }
-    }
-
-    /**
-     * Formats and prints messages line by line to the console.
-     * The first line will have chatbot name
-     * Every line will have a vertical line before contents.
-     */
-    public void say() {
-        String firstLine = Wee.NAME + ": ";
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < messages.size(); i++) {
-            String prefix = (i == 0 ? firstLine : " ".repeat(firstLine.length())) + "| ";
-            stringBuilder.append(prefix).append(String.format("%s", messages.get(i))).append("\n");
-        }
-        System.out.println(stringBuilder);
     }
 
     public enum Tag {

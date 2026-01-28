@@ -1,11 +1,12 @@
 package com.eokwingster;
 
+import com.eokwingster.client.UI;
+import com.eokwingster.command.CommandParser;
 import com.eokwingster.command.CommandRegistry;
-import com.eokwingster.command.keyword.CommandRoot;
-import com.eokwingster.command.keyword.Keyword;
 import com.eokwingster.command.Step;
 import com.eokwingster.command.keyword.Keywords;
 import com.eokwingster.data.ChatData;
+import com.eokwingster.data.Storage;
 import com.eokwingster.data.task.TaskType;
 import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.responsors.ExitChatResponsor;
@@ -20,16 +21,19 @@ import com.eokwingster.responsor.responsors.TaskListResponsor;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Wee {
     public static final String NAME = "Wee";
     private final ChatData chatData;
+    private final Storage storage;
+    private final UI ui;
 
     private Wee() {
         chatData = new ChatData();
+        storage = new Storage();
+        ui = new UI();
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException {
@@ -44,15 +48,15 @@ public class Wee {
 
         Wee wee = new Wee();
         wee.setUp();
-        wee.chatData.load();
-        wee.getResponseFromInput("new").say();
+        wee.storage.load(wee.chatData);
+        wee.ui.display(wee.getResponseFromInput("new"));
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             Response response = wee.getResponseFromInput(input);
-            response.say();
+            wee.ui.display(response);
             if (response.tags().contains(Response.Tag.SAVE)) {
-                wee.chatData.save();
+                wee.storage.save(wee.chatData);
             }
             if (response.tags().contains(Response.Tag.EXIT)) {
                 break;
@@ -68,7 +72,7 @@ public class Wee {
         List<Step> steps;
         Response.Builder response = Response.builder();
         try {
-            steps = getStepsFromInput(input);
+            steps = CommandParser.getStepsFromInput(input, chatData);
         } catch (IllegalArgumentException e) {
             return response.appendWarning(e.getMessage()).build();
         }
@@ -76,55 +80,6 @@ public class Wee {
             CommandRegistry.getResponsor(step.keyword()).response(step.argument(), chatData, response, steps).withNextCommandN();
         }
         return response.build();
-    }
-
-    /**
-     * Convert the user input into list of Step after validation
-     * @param input the original user input
-     * @return a list of Step objects
-     * @see Step
-     */
-    public List<Step> getStepsFromInput(String input) throws IllegalArgumentException {
-        List<String> stringSteps = List.of(input.split(" /"));
-        List<Step> steps = new ArrayList<>();
-        String rootAlias = null;
-        List<Keyword> requiredModifiers =  new ArrayList<>();
-        for (int i = 0; i < stringSteps.size(); i++) {
-            String[] step = stringSteps.get(i).split(" ", 2);
-            String alias = step[0];
-            String argument = step.length > 1 ? step[1] : "";
-
-            //validation
-            if (alias.isBlank()) {
-                throw new IllegalArgumentException("Did you forget to input any keyword?");
-            }
-            Keyword keyword = CommandRegistry.getKeyword(alias);
-            if (keyword == null) {
-                throw new IllegalArgumentException(alias + " is not a keyword");
-            }
-            if (i == 0) {
-                if (keyword instanceof CommandRoot commandRoot) {
-                    rootAlias = alias;
-                    requiredModifiers.addAll(commandRoot.getRequiredModifiers());
-                } else {
-                    throw new IllegalArgumentException("The first keyword must not be a modifier: " + alias);
-                }
-            } else {
-                if (keyword instanceof CommandRoot) {
-                    throw new IllegalArgumentException("This keyword is not a modifier: " + alias);
-                } else if (!requiredModifiers.remove(keyword)) {
-                    throw new IllegalArgumentException(alias + " is not a legal modifier for " + rootAlias);
-                }
-            }
-            keyword.validateStep(alias, argument, chatData);
-
-            steps.add(new Step(keyword, alias, argument));
-        }
-        if (!requiredModifiers.isEmpty()) {
-            throw new IllegalArgumentException("Some required modifiers lost!");
-        }
-
-        return steps;
     }
 
     /**
