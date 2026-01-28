@@ -47,6 +47,10 @@ public class ChatData {
         this.focusingTaskIndex = focusingTaskIndex;
     }
 
+    /**
+     * Add a task into tasks
+     * @param task The task to be added
+     */
     public void addTask(Task task) {
         tasks.add(task);
         setFocusingTaskIndex(tasks.size() - 1);
@@ -56,16 +60,31 @@ public class ChatData {
         return tasks;
     }
 
+    /**
+     * Reset chat data to original state
+     */
     public void reset() {
         tasks.clear();
         focusingTaskIndex = -1;
     }
 
+    /**
+     * save chat data into JSON file
+     * @throws IOException
+     * @throws URISyntaxException
+     * @see Utils#getJarFolderPath()
+     */
     public void save() throws IOException, URISyntaxException {
         String json = GSON.toJson(this);
         Files.writeString(Utils.getJarFolderPath(), json);
     }
 
+    /**
+     * load data from JSON file
+     * @throws IOException
+     * @throws URISyntaxException
+     * @see Utils#getJarFolderPath()
+     */
     public void load() throws IOException, URISyntaxException {
         try {
             String json = Files.readString(Utils.getJarFolderPath());
