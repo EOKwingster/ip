@@ -10,7 +10,7 @@ import java.util.List;
 public class TaskClearResponsor implements Responsor {
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        chatData.getTasks().clear();
+        chatData.clearTasks();
         return builtResponse.appendMessage("All tasks have been cleared").addTags(Response.Tag.SAVE);
     }
 }

@@ -26,7 +26,7 @@ public class TaskAddResponsor implements Responsor {
         chatData.addTask(task);
         return builtResponse.appendMessage("Task added:")
                 .appendMessage("  %s", task)
-                .appendMessage("Now you have " + chatData.getTasks().size() + " tasks.")
+                .appendMessage("Now you have " + chatData.getTaskCount() + " tasks.")
                 .addTags(Response.Tag.SAVE);
     }
 }

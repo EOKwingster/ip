@@ -11,11 +11,11 @@ import java.util.List;
 public class TaskDeleteResponsor implements Responsor {
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        Task task = chatData.getTasks().remove(Integer.parseInt(argument) - 1);
+        Task task = chatData.removeTaskAt(Integer.parseInt(argument) - 1);
         builtResponse.appendMessages(
                 "This task has been removed:",
                 "  " + task,
-                "Now you have " + chatData.getTasks().size() + " tasks."
+                "Now you have " + chatData.getTaskCount() + " tasks."
         ).addTags(Response.Tag.SAVE);
         return builtResponse;
     }
