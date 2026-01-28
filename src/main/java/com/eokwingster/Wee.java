@@ -102,7 +102,6 @@ public class Wee {
                 } else if (!rootKeywords.contains(rootKeyword)) {
                     throw new IllegalArgumentException(alias + " must follows a root keyword in: " + rootKeywords);
                 }
-                throw new IllegalArgumentException("This is not a modifier: " + alias);
             }
             keyword.validateStep(alias, argument, chatData);
 
