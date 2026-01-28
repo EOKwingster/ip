@@ -116,7 +116,7 @@ public record Response(List<DynamicMessage> messages, int commandN, Set<Tag> tag
         String firstLine = Wee.NAME + ": ";
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < messages.size(); i++) {
-            String prefix = i == 0 ? firstLine : " ".repeat(firstLine.length()) + "| ";
+            String prefix = (i == 0 ? firstLine : " ".repeat(firstLine.length())) + "| ";
             stringBuilder.append(prefix).append(String.format("%s", messages.get(i))).append("\n");
         }
         System.out.println(stringBuilder);
