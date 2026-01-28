@@ -1,4 +1,4 @@
-package com.eokwingster.data.task;
+package com.eokwingster.data;
 
 import java.time.LocalDateTime;
 

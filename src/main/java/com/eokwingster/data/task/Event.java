@@ -1,5 +1,8 @@
 package com.eokwingster.data.task;
 
+import com.eokwingster.data.HasBeginTime;
+import com.eokwingster.data.HasEndTime;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task implements HasBeginTime, HasEndTime {

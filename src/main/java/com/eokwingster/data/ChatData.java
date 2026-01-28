@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * This class store all the data needed and generated in a chat.
  */
 public class ChatData {
-    private static final Gson GSON = new GsonBuilder().registerTypeAdapter(Task.class, new TaskAdapter()).setPrettyPrinting().create();
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapterFactory(new TaskTypeAdapterFactory())
             .setPrettyPrinting()

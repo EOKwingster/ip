@@ -1,5 +1,7 @@
 package com.eokwingster.data.task;
 
+import com.eokwingster.data.HasEndTime;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task implements HasEndTime {
