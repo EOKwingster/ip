@@ -12,6 +12,7 @@ import com.eokwingster.responsor.responsors.ExitChatResponsor;
 import com.eokwingster.responsor.responsors.StartChatResponsor;
 import com.eokwingster.responsor.responsors.TaskAddResponsor;
 import com.eokwingster.responsor.responsors.TaskBeginTimeResponsor;
+import com.eokwingster.responsor.responsors.TaskClearResponsor;
 import com.eokwingster.responsor.responsors.TaskDeleteResponsor;
 import com.eokwingster.responsor.responsors.TaskDoneStatusResponsor;
 import com.eokwingster.responsor.responsors.TaskEndTimeResponsor;
@@ -141,5 +142,6 @@ public class Wee {
         CommandRegistry.registerResponsor(new TaskBeginTimeResponsor(), Keywords.SET_TASK_BEGIN);
         CommandRegistry.registerResponsor(new TaskEndTimeResponsor(), Keywords.SET_TASK_END);
         CommandRegistry.registerResponsor(new TaskDeleteResponsor(), Keywords.DELETE_TASK);
+        CommandRegistry.registerResponsor(new TaskClearResponsor(), Keywords.CLEAR_TASK);
     }
 }
