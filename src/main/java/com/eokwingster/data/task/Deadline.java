@@ -1,5 +1,6 @@
 package com.eokwingster.data.task;
 
+import com.eokwingster.data.ChatData;
 import com.eokwingster.data.HasEndTime;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,6 @@ public class Deadline extends Task implements HasEndTime {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (by: %s)", endTime);
+        return super.toString() + String.format(" (by: %s)", endTime.format(ChatData.DATE_TIME_DISPLAY_FORMATTER));
     }
 }

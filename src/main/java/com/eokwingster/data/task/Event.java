@@ -1,5 +1,6 @@
 package com.eokwingster.data.task;
 
+import com.eokwingster.data.ChatData;
 import com.eokwingster.data.HasBeginTime;
 import com.eokwingster.data.HasEndTime;
 
@@ -42,6 +43,10 @@ public class Event extends Task implements HasBeginTime, HasEndTime {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (from: %s to: %s)", beginTime, endTime);
+        return super.toString() + String.format(
+                " (from: %s to: %s)",
+                beginTime.format(ChatData.DATE_TIME_DISPLAY_FORMATTER),
+                endTime.format(ChatData.DATE_TIME_DISPLAY_FORMATTER)
+        );
     }
 }

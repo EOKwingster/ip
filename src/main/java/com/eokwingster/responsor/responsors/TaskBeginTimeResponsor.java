@@ -13,7 +13,7 @@ public class TaskBeginTimeResponsor implements Responsor {
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
         HasBeginTime task = (HasBeginTime) chatData.getFocusingTask();
-        task.setBeginTime(LocalDateTime.parse(argument, ChatData.DATE_TIME_FORMATTER));
+        task.setBeginTime(LocalDateTime.parse(argument, ChatData.DATE_TIME_SAVE_FORMATTER));
         return builtResponse;
     }
 }

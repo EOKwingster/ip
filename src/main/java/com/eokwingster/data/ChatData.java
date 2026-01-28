@@ -14,12 +14,14 @@ import java.nio.file.NoSuchFileException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This class store all the data needed and generated in a chat.
  */
 public class ChatData {
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter DATE_TIME_SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.US);
+    public static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("yyyy MMM dd hh:mm a", Locale.US);
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapterFactory(new TaskTAF())
             .registerTypeAdapterFactory(new LocalDateTimeTAF())
