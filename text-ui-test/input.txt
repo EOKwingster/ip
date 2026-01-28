@@ -1,10 +1,26 @@
-todo read book /deadline return book /by June 6th /event project meeting /from Aug 6th /to 4pm /todo join sports club /todo borrow book /list
-mark 1 /mark 2 /mark 4 /list /unmark 2 /list
+todo read book
+deadline return book /by June 6th
+deadline buy book /to June 8th
+event project meeting /from Aug 6th /to 4pm
+todo join sports club
+todo borrow book
+list
+mark 1
+mark 2
+mark 4
+list
+unmark 2
+list
 new
-deadline d1 /deadline d2 /to 4pm /event e1 /event e2 /from 2pm /event e3 /to 4pm /event e4 /by 4pm /list
-hi
+
+deadline d0 / 6pm
+todo
+deadline d1
 deadline d1 /from 2pm
+event e1
+event e2 /from 2pm
+event e3 /to 4pm
 deedline /by 4pm
-todo
-todo
+todo t1
+mark 2
 exit
