@@ -11,6 +11,7 @@ mark 4
 list
 unmark 2
 list
+clear
 new
 
 deadline d0 / 6pm
@@ -23,4 +24,5 @@ event e3 /to 4pm
 deedline /by 4pm
 todo t1
 mark 2
+clear
 exit

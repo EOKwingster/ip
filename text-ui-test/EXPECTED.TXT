@@ -63,6 +63,8 @@ Wee: | Task in your list:
      | 5.[T][ ] join sports club
      | 6.[T][ ] borrow book
 
+Wee: | All tasks have been cleared
+
 Wee: | Hello! I'm Wee
      | What can I do for you?
 
@@ -89,6 +91,8 @@ Wee: | Task added:
      | Now you have 1 tasks.
 
 Wee: | !!Warning: You don't have a task with this number: 2, use /list to list your tasks
+
+Wee: | All tasks have been cleared
 
 Wee: | Bye. Hope to see you again soon!
 
