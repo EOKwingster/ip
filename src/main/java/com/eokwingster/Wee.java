@@ -1,7 +1,18 @@
 package com.eokwingster;
 
-import com.eokwingster.command.Keyword;
+import com.eokwingster.command.CommandRegistry;
+import com.eokwingster.command.keyword.AddEventTaskKeyword;
+import com.eokwingster.command.keyword.AddTodoTaskKeyword;
+import com.eokwingster.command.keyword.DeleteTaskKeyword;
+import com.eokwingster.command.keyword.Keyword;
 import com.eokwingster.command.Step;
+import com.eokwingster.command.keyword.ExitChatKeyword;
+import com.eokwingster.command.keyword.ListTasksKeyword;
+import com.eokwingster.command.keyword.MarkTaskKeyword;
+import com.eokwingster.command.keyword.NewChatKeyword;
+import com.eokwingster.command.keyword.SetTaskBeginTimeKeyword;
+import com.eokwingster.command.keyword.SetTaskEndTimeKeyword;
+import com.eokwingster.command.keyword.UnmarkTaskKeyword;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.TaskType;
 import com.eokwingster.responsor.Modifier;
@@ -24,12 +35,10 @@ import java.util.stream.IntStream;
 
 public class Wee {
     public static final String NAME = "Wee";
-    private final ResponsorRegistry responsorRegistry;
     private final ChatData chatData;
 
-    private Wee(ResponsorRegistry responsorRegistry, ChatData chatData) {
-        this.responsorRegistry = responsorRegistry;
-        this.chatData = chatData;
+    private Wee() {
+        this.chatData = new ChatData();
     }
 
     public static void main(String[] args) {
@@ -42,7 +51,8 @@ public class Wee {
                 """;
         System.out.println(logo);
 
-        Wee wee = getDefaultWee();
+        Wee wee = new Wee();
+        wee.setUp();
         wee.getResponseFromInput("new").say();
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -111,20 +121,6 @@ public class Wee {
      * get Wee with default setting
      * @return the default Wee
      */
-    private static Wee getDefaultWee() {
-        ResponsorRegistry responsorRegistry = new ResponsorRegistry();
-        responsorRegistry.register(new StartChatResponsor(), Keyword.NEW, Keyword.HI);
-        responsorRegistry.register(new ExitChatResponsor(), Keyword.EXIT, Keyword.BYE);
-        responsorRegistry.register(new TaskAddResponsor(TaskType.TO_DO), Keyword.TODO);
-        responsorRegistry.register(new TaskAddResponsor(TaskType.DEADLINE), Keyword.DEADLINE);
-        responsorRegistry.register(new TaskAddResponsor(TaskType.EVENT), Keyword.EVENT);
-        responsorRegistry.register(new TaskListResponsor(), Keyword.LIST);
-        responsorRegistry.register(new TaskDoneStatusResponsor(true), Keyword.MARK);
-        responsorRegistry.register(new TaskDoneStatusResponsor(false), Keyword.UNMARK);
-        responsorRegistry.register(new TaskBeginTimeResponsor(), Keyword.FROM);
-        responsorRegistry.register(new TaskEndTimeResponsor(), Keyword.BY, Keyword.TO);
-        responsorRegistry.register(new TaskDeleteResponsor(), Keyword.DELETE);
-        return new Wee(responsorRegistry,  new ChatData());
     public List<Step> getStepsFromInput(String input) throws IllegalArgumentException {
         String[] steps = input.split(" /");
         return IntStream.range(0, steps.length)
@@ -136,5 +132,21 @@ public class Wee {
                     return new Step(keyword, alias, argument);
                 }).toList();
     }
+
+    /**
+     * Run the necessary set up before the chat starts
+     */
+    private void setUp() {
+        CommandRegistry.registerResponsor(new StartChatResponsor(), new NewChatKeyword());
+        CommandRegistry.registerResponsor(new ExitChatResponsor(), new ExitChatKeyword());
+        CommandRegistry.registerResponsor(new TaskAddResponsor(TaskType.TO_DO), new AddTodoTaskKeyword());
+        CommandRegistry.registerResponsor(new TaskAddResponsor(TaskType.DEADLINE), new AddDeadlineTaskKeyword());
+        CommandRegistry.registerResponsor(new TaskAddResponsor(TaskType.EVENT), new AddEventTaskKeyword());
+        CommandRegistry.registerResponsor(new TaskListResponsor(), new ListTasksKeyword());
+        CommandRegistry.registerResponsor(new TaskDoneStatusResponsor(true), new MarkTaskKeyword());
+        CommandRegistry.registerResponsor(new TaskDoneStatusResponsor(false), new UnmarkTaskKeyword());
+        CommandRegistry.registerResponsor(new TaskBeginTimeResponsor(), new SetTaskBeginTimeKeyword());
+        CommandRegistry.registerResponsor(new TaskEndTimeResponsor(), new SetTaskEndTimeKeyword());
+        CommandRegistry.registerResponsor(new TaskDeleteResponsor(), new DeleteTaskKeyword());
     }
 }

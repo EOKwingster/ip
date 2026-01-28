@@ -8,5 +8,5 @@ public abstract class NoArgumentKeyword implements Keyword {
         if (!argument.isBlank()) {
             throw new IllegalArgumentException(alias + "does not need an argument, the argument: " + argument + " should be blank");
         }
-    };
+    }
 }
