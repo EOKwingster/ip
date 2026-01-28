@@ -1,4 +1,4 @@
-package com.eokwingster.command.keyword;
+package com.eokwingster.command.keyword.abstractkeywods;
 
 import com.eokwingster.data.ChatData;
 

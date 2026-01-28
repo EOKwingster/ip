@@ -1,5 +1,6 @@
-package com.eokwingster.command.keyword;
+package com.eokwingster.command.keyword.abstractkeywods;
 
+import com.eokwingster.command.keyword.Keyword;
 import com.eokwingster.data.ChatData;
 
 public abstract class SelectTaskByIndexKeyword implements Keyword {

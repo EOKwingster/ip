@@ -1,5 +1,18 @@
 package com.eokwingster.command.keyword;
 
+import com.eokwingster.command.keyword.keywords.AddDeadlineTaskKeyword;
+import com.eokwingster.command.keyword.keywords.AddEventTaskKeyword;
+import com.eokwingster.command.keyword.keywords.AddTodoTaskKeyword;
+import com.eokwingster.command.keyword.keywords.ClearTaskKeyword;
+import com.eokwingster.command.keyword.keywords.DeleteTaskKeyword;
+import com.eokwingster.command.keyword.keywords.ExitChatKeyword;
+import com.eokwingster.command.keyword.keywords.ListTasksKeyword;
+import com.eokwingster.command.keyword.keywords.MarkTaskKeyword;
+import com.eokwingster.command.keyword.keywords.SetTaskBeginTimeKeyword;
+import com.eokwingster.command.keyword.keywords.SetTaskEndTimeKeyword;
+import com.eokwingster.command.keyword.keywords.StartChatKeyword;
+import com.eokwingster.command.keyword.keywords.UnmarkTaskKeyword;
+
 public class Keywords {
     public static final Keyword START_CHAT = new StartChatKeyword();
     public static final Keyword EXIT_CHAT = new ExitChatKeyword();
