@@ -22,9 +22,6 @@ public class TaskAddResponsor implements Responsor {
      */
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        if (argument.isBlank()) {
-            return builtResponse.appendWarning("The description of a task can not be empty or blank.");
-        }
         Task task = taskType.createTask(argument);
         chatData.addTask(task);
         return builtResponse.appendMessage("Task added:")

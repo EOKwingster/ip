@@ -13,6 +13,6 @@ public class ExitChatResponsor implements Responsor {
      */
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        return builtResponse.appendMessages("Bye. Hope to see you again soon!").addTags(Response.Tag.Final, Response.Tag.Exit);
+        return builtResponse.appendMessages("Bye. Hope to see you again soon!").addTags(Response.Tag.Exit);
     }
 }

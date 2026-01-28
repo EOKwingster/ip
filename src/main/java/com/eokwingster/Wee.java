@@ -1,6 +1,7 @@
 package com.eokwingster;
 
 import com.eokwingster.command.CommandRegistry;
+import com.eokwingster.command.keyword.AddDeadlineTaskKeyword;
 import com.eokwingster.command.keyword.AddEventTaskKeyword;
 import com.eokwingster.command.keyword.AddTodoTaskKeyword;
 import com.eokwingster.command.keyword.DeleteTaskKeyword;
@@ -17,9 +18,6 @@ import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.TaskType;
 import com.eokwingster.responsor.Modifier;
 import com.eokwingster.responsor.Response;
-import com.eokwingster.responsor.Responsor;
-import com.eokwingster.responsor.ResponsorRegistry;
-import com.eokwingster.responsor.responsors.ErrorResponsor;
 import com.eokwingster.responsor.responsors.ExitChatResponsor;
 import com.eokwingster.responsor.responsors.StartChatResponsor;
 import com.eokwingster.responsor.responsors.TaskAddResponsor;
@@ -70,56 +68,24 @@ public class Wee {
      * @return Response of this input
      */
     private Response getResponseFromInput(String input) {
-        List<Step> steps = Step.listOf(input);
+        List<Step> steps;
         Response.Builder response = Response.builder();
-        Responsor responsor;
-        Keyword lastRootKeyword = null;
+        try {
+            steps = getStepsFromInput(input);
+        } catch (IllegalArgumentException e) {
+            return response.appendWarning(e.getMessage()).build();
+        }
         for (Step step : steps) {
-            // step label
-            if (response.hasTags(Response.Tag.Modifier)) {
-                response.removeLastStepStartPoint().removeTags(Response.Tag.Modifier);
-            }
-            response.markStepStartPoint();
-
-            // get Keyword from string
-            Keyword keyword;
-            try {
-                keyword = Keyword.valueOf(step.keyword().toUpperCase());
-            } catch (NullPointerException | IllegalArgumentException e) {
-                keyword = Keyword.UNKNOWN;
-            }
-
-            // record root keyword if the last keyword is, and get new responsor
-            if (!keyword.isModifier()) {
-                lastRootKeyword = keyword;
-            }
-            if (keyword == Keyword.UNKNOWN) {
-                responsor = ErrorResponsor.of("I don't understand: " + step, "What are you talking about?");
-            } else {
-                responsor = responsorRegistry.getResponsor(keyword);
-            }
-
-            // maintain modifier command structure
-            if (responsor instanceof Modifier modifier) {
-                if (!modifier.getRootKeywords().contains(lastRootKeyword)) {
-                    responsor = ErrorResponsor.of(String.format("%s command must follow commands: %s", keyword, modifier.getRootKeywords()));
-                }
-            }
-
-            // get response
-            response = responsor.response(step.argument(), chatData, response, steps).withNextCommandN();
-
-            //terminate subsequent responses if final tag
-            if (response.hasTags(Response.Tag.Final)) {
-                break;
-            }
+            CommandRegistry.getResponsor(step.keyword()).response(step.argument(), chatData, response, steps).withNextCommandN();
         }
         return response.build();
     }
 
     /**
-     * get Wee with default setting
-     * @return the default Wee
+     * Convert the user input into list of Step after validation
+     * @param input the original user input
+     * @return a list of Step objects
+     * @see Step
      */
     public List<Step> getStepsFromInput(String input) throws IllegalArgumentException {
         String[] steps = input.split(" /");
@@ -129,6 +95,16 @@ public class Wee {
                     String[] step = steps[i].split(" ", 2);
                     String alias = step[0];
                     String argument = step.length > 1 ? step[1] : "";
+
+                    //validation
+                    Keyword keyword = CommandRegistry.getKeyword(alias);
+                    if (keyword == null) {
+                        throw new IllegalArgumentException(alias + "is not a keyword!");
+                    } else if (i != 0 && !(CommandRegistry.getResponsor(keyword) instanceof Modifier)) {
+                        throw new IllegalArgumentException("This command line has second root command: " + alias);
+                    }
+                    keyword.validateCommandStep(alias, argument, chatData);
+
                     return new Step(keyword, alias, argument);
                 }).toList();
     }

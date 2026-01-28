@@ -1,6 +1,6 @@
 package com.eokwingster.responsor;
 
-import com.eokwingster.command.Keyword;
+import com.eokwingster.command.keyword.Keyword;
 
 import java.util.List;
 

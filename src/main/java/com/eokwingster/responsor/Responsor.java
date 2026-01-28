@@ -16,7 +16,8 @@ public interface Responsor {
      * @param chatData the data stored in current chat
      * @param builtResponse the response given by previous responsors in this command line
      * @param steps list of steps inside user input
-     * @return Response messages as a list of String, each element is one line.
+     * @return The builder of the response for this command line.
+     * @see Response
      */
     Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps);
 }
