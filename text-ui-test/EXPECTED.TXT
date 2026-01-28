@@ -8,15 +8,15 @@ Wee: | Task added:
      | Now you have 1 tasks.
 
 Wee: | Task added:
-     |   [D][ ] return book (by: June 6th)
+     |   [D][ ] return book (by: 2026 Jun 06 11:59 PM)
      | Now you have 2 tasks.
 
 Wee: | Task added:
-     |   [D][ ] buy book (by: June 8th)
+     |   [D][ ] buy book (by: 2026 Jul 08 11:59 PM)
      | Now you have 3 tasks.
 
 Wee: | Task added:
-     |   [E][ ] project meeting (from: Aug 6th to: 4pm)
+     |   [E][ ] project meeting (from: 2026 Aug 06 08:00 AM to: 2026 Aug 06 04:00 PM)
      | Now you have 4 tasks.
 
 Wee: | Task added:
@@ -29,9 +29,9 @@ Wee: | Task added:
 
 Wee: | Task in your list:
      | 1.[T][ ] read book
-     | 2.[D][ ] return book (by: June 6th)
-     | 3.[D][ ] buy book (by: June 8th)
-     | 4.[E][ ] project meeting (from: Aug 6th to: 4pm)
+     | 2.[D][ ] return book (by: 2026 Jun 06 11:59 PM)
+     | 3.[D][ ] buy book (by: 2026 Jul 08 11:59 PM)
+     | 4.[E][ ] project meeting (from: 2026 Aug 06 08:00 AM to: 2026 Aug 06 04:00 PM)
      | 5.[T][ ] join sports club
      | 6.[T][ ] borrow book
 
@@ -39,27 +39,27 @@ Wee: | This task has been marked done.
      |    [T][X] read book
 
 Wee: | This task has been marked done.
-     |    [D][X] return book (by: June 6th)
+     |    [D][X] return book (by: 2026 Jun 06 11:59 PM)
 
 Wee: | This task has been marked done.
-     |    [E][X] project meeting (from: Aug 6th to: 4pm)
+     |    [E][X] project meeting (from: 2026 Aug 06 08:00 AM to: 2026 Aug 06 04:00 PM)
 
 Wee: | Task in your list:
      | 1.[T][X] read book
-     | 2.[D][X] return book (by: June 6th)
-     | 3.[D][ ] buy book (by: June 8th)
-     | 4.[E][X] project meeting (from: Aug 6th to: 4pm)
+     | 2.[D][X] return book (by: 2026 Jun 06 11:59 PM)
+     | 3.[D][ ] buy book (by: 2026 Jul 08 11:59 PM)
+     | 4.[E][X] project meeting (from: 2026 Aug 06 08:00 AM to: 2026 Aug 06 04:00 PM)
      | 5.[T][ ] join sports club
      | 6.[T][ ] borrow book
 
 Wee: | This task has been unmarked done.
-     |    [D][ ] return book (by: June 6th)
+     |    [D][ ] return book (by: 2026 Jun 06 11:59 PM)
 
 Wee: | Task in your list:
      | 1.[T][X] read book
-     | 2.[D][ ] return book (by: June 6th)
-     | 3.[D][ ] buy book (by: June 8th)
-     | 4.[E][X] project meeting (from: Aug 6th to: 4pm)
+     | 2.[D][ ] return book (by: 2026 Jun 06 11:59 PM)
+     | 3.[D][ ] buy book (by: 2026 Jul 08 11:59 PM)
+     | 4.[E][X] project meeting (from: 2026 Aug 06 08:00 AM to: 2026 Aug 06 04:00 PM)
      | 5.[T][ ] join sports club
      | 6.[T][ ] borrow book
 
@@ -70,11 +70,9 @@ Wee: | Hello! I'm Wee
 
 Wee: | !!Warning: Did you forget to input any keyword?
 
-Wee: | !!Warning: Did you forget to input any keyword?
-
 Wee: | !!Warning: The description of a task can not be blank!
 
-Wee: | !!Warning: Some required modifiers lost!
+Wee: | !!Warning: Text 'June 6th 2pm' could not be parsed at index 0
 
 Wee: | !!Warning: from is not a legal modifier for deadline
 
@@ -82,15 +80,9 @@ Wee: | !!Warning: Some required modifiers lost!
 
 Wee: | !!Warning: Some required modifiers lost!
 
-Wee: | !!Warning: Some required modifiers lost!
-
 Wee: | !!Warning: deedline is not a keyword
 
-Wee: | Task added:
-     |   [T][ ] t1
-     | Now you have 1 tasks.
-
-Wee: | !!Warning: You don't have a task with this number: 2, use /list to list your tasks
+Wee: | !!Warning: You don't have a task with this number: 1, use /list to list your tasks
 
 Wee: | All tasks have been cleared
 

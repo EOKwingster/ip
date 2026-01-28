@@ -1,7 +1,7 @@
 todo read book
-deadline return book /by June 6th
-deadline buy book /to June 8th
-event project meeting /from Aug 6th /to 4pm
+deadline return book /by 06-06
+ddl buy book /to 07-08
+event project meeting /from 08-06 08:00 /to 08-06 16:00
 todo join sports club
 todo borrow book
 list
@@ -13,16 +13,13 @@ unmark 2
 list
 clear
 new
-
-deadline d0 / 6pm
+deadline d / 03-03
 todo
-deadline d1
-deadline d1 /from 2pm
-event e1
-event e2 /from 2pm
-event e3 /to 4pm
-deedline /by 4pm
-todo t1
-mark 2
+deadline d /by June 6th 2pm
+deadline d /from 01-01
+event e /from 01-01
+event e /to 01-01
+deedline /by 01-01
+mark 1
 clear
 exit
