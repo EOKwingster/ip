@@ -20,6 +20,7 @@ import com.eokwingster.responsor.responsors.TaskListResponsor;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class Wee {
     public static final String NAME = "Wee";
@@ -124,5 +125,16 @@ public class Wee {
         responsorRegistry.register(new TaskEndTimeResponsor(), Keyword.BY, Keyword.TO);
         responsorRegistry.register(new TaskDeleteResponsor(), Keyword.DELETE);
         return new Wee(responsorRegistry,  new ChatData());
+    public List<Step> getStepsFromInput(String input) throws IllegalArgumentException {
+        String[] steps = input.split(" /");
+        return IntStream.range(0, steps.length)
+                .boxed()
+                .map(i -> {
+                    String[] step = steps[i].split(" ", 2);
+                    String alias = step[0];
+                    String argument = step.length > 1 ? step[1] : "";
+                    return new Step(keyword, alias, argument);
+                }).toList();
+    }
     }
 }

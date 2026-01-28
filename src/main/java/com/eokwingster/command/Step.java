@@ -1,29 +1,18 @@
 package com.eokwingster.command;
 
-import java.util.Arrays;
-import java.util.List;
+import com.eokwingster.command.keyword.Keyword;
 
-public record Step(String keyword, String argument) {
-    public static Step of(String keyword, String argument) {
-        return new Step(keyword, argument);
-    }
-
-    public static Step of(String stepInput) {
-        String[] step = stepInput.split(" ", 2);
-        String command = step[0];
-        String argument = step.length > 1 ? step[1] : "";
-        return of(command, argument);
-    }
-
-    public static List<Step> listOf(String input) {
-        return Arrays.stream(input.split(" /")).map(Step::of).toList();
-    }
-
+/**
+ * A record class to represent a step consist of a keyword and an argument.
+ * @param keyword
+ * @param argument
+ */
+public record Step(Keyword keyword, String alias, String argument) {
     @Override
     public String toString() {
         if (argument.isEmpty()) {
-            return keyword;
+            return alias;
         }
-        return keyword + " " + argument;
+        return alias + " " + argument;
     }
 }
