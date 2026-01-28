@@ -16,11 +16,19 @@ public interface Keyword {
      * @param chatData The data storage of this chat
      * @throws IllegalArgumentException Throw IllegalArgumentException when the string is not a valid argument
      */
-    void validateCommandStep(String alias, String argument, ChatData chatData) throws IllegalArgumentException;
+    void validateStep(String alias, String argument, ChatData chatData) throws IllegalArgumentException;
 
     /**
      * Get the related aliases of this keyword
      * @return List of aliases
      */
     List<String> getAliases();
+
+    /**
+     * Get the root keyword this keyword follows
+     * @return List of keywords if this keyword is a modifier, default an empty list
+     */
+    default List<Keyword> getRootKeywords() {
+        return List.of();
+    }
 }

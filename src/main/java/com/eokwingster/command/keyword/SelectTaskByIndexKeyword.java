@@ -4,7 +4,7 @@ import com.eokwingster.data.ChatData;
 
 public abstract class SelectTaskByIndexKeyword implements Keyword {
     @Override
-    public void validateCommandStep(String alias, String argument, ChatData chatData) throws IllegalArgumentException {
+    public void validateStep(String alias, String argument, ChatData chatData) throws IllegalArgumentException {
         try {
             int i = Integer.parseInt(argument) - 1;
             if (chatData.getTasks().size() <= i || i < 0) {

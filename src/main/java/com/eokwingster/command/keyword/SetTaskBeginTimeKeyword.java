@@ -7,4 +7,9 @@ public class SetTaskBeginTimeKeyword extends SetTaskTimeKeyword {
     public List<String> getAliases() {
         return List.of("from");
     }
+
+    @Override
+    public List<Keyword> getRootKeywords() {
+        return List.of(Keywords.ADD_EVENT_TASK);
+    }
 }
