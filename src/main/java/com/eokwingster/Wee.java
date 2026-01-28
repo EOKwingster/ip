@@ -84,9 +84,12 @@ public class Wee {
             String[] step = stringSteps.get(i).split(" ", 2);
             String alias = step[0];
             String argument = step.length > 1 ? step[1] : "";
-            Keyword keyword = CommandRegistry.getKeyword(alias);
 
             //validation
+            if (alias.isBlank()) {
+                throw new IllegalArgumentException("Did you forget to input any keyword?");
+            }
+            Keyword keyword = CommandRegistry.getKeyword(alias);
             if (keyword == null) {
                 throw new IllegalArgumentException(alias + "is not a keyword");
             }
