@@ -1,6 +1,8 @@
 package com.eokwingster.data.task;
 
+import java.time.LocalDateTime;
+
 public interface HasEndTime {
-    void setEndTime(String endTime);
-    String getEndTime();
+    void setEndTime(LocalDateTime endTime);
+    LocalDateTime getEndTime();
 }

@@ -1,32 +1,34 @@
 package com.eokwingster.data.task;
 
-public class Event extends Task implements HasBeginTime, HasEndTime {
-    private String beginTime;
-    private String endTime;
+import java.time.LocalDateTime;
 
-    public Event(String description, String beginTime, String endTime) {
+public class Event extends Task implements HasBeginTime, HasEndTime {
+    private LocalDateTime beginTime;
+    private LocalDateTime endTime;
+
+    public Event(String description, LocalDateTime beginTime, LocalDateTime endTime) {
         super(description);
         this.beginTime = beginTime;
         this.endTime = endTime;
     }
 
     @Override
-    public void setBeginTime(String beginTime) {
+    public void setBeginTime(LocalDateTime beginTime) {
         this.beginTime = beginTime;
     }
 
     @Override
-    public String getBeginTime() {
+    public LocalDateTime getBeginTime() {
         return beginTime;
     }
 
     @Override
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
     @Override
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 

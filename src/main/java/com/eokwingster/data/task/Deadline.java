@@ -1,20 +1,22 @@
 package com.eokwingster.data.task;
 
-public class Deadline extends Task implements HasEndTime {
-    protected String endTime;
+import java.time.LocalDateTime;
 
-    public Deadline(String description, String endTime) {
+public class Deadline extends Task implements HasEndTime {
+    protected LocalDateTime endTime;
+
+    public Deadline(String description, LocalDateTime endTime) {
         super(description);
         this.endTime = endTime;
     }
 
     @Override
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
     @Override
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
