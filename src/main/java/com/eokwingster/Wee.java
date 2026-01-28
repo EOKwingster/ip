@@ -12,11 +12,14 @@ import com.eokwingster.responsor.responsors.ExitChatResponsor;
 import com.eokwingster.responsor.responsors.StartChatResponsor;
 import com.eokwingster.responsor.responsors.TaskAddResponsor;
 import com.eokwingster.responsor.responsors.TaskBeginTimeResponsor;
+import com.eokwingster.responsor.responsors.TaskClearResponsor;
 import com.eokwingster.responsor.responsors.TaskDeleteResponsor;
 import com.eokwingster.responsor.responsors.TaskDoneStatusResponsor;
 import com.eokwingster.responsor.responsors.TaskEndTimeResponsor;
 import com.eokwingster.responsor.responsors.TaskListResponsor;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,10 +29,10 @@ public class Wee {
     private final ChatData chatData;
 
     private Wee() {
-        this.chatData = new ChatData();
+        chatData = new ChatData();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         String logo = """
                 █   █  █████  █████
                 █   █  █      █
@@ -41,13 +44,17 @@ public class Wee {
 
         Wee wee = new Wee();
         wee.setUp();
+        wee.chatData.load();
         wee.getResponseFromInput("new").say();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             Response response = wee.getResponseFromInput(input);
             response.say();
-            if (response.tags().contains(Response.Tag.Exit)) {
+            if (response.tags().contains(Response.Tag.SAVE)) {
+                wee.chatData.save();
+            }
+            if (response.tags().contains(Response.Tag.EXIT)) {
                 break;
             }
         }
@@ -135,5 +142,6 @@ public class Wee {
         CommandRegistry.registerResponsor(new TaskBeginTimeResponsor(), Keywords.SET_TASK_BEGIN);
         CommandRegistry.registerResponsor(new TaskEndTimeResponsor(), Keywords.SET_TASK_END);
         CommandRegistry.registerResponsor(new TaskDeleteResponsor(), Keywords.DELETE_TASK);
+        CommandRegistry.registerResponsor(new TaskClearResponsor(), Keywords.CLEAR_TASK);
     }
 }

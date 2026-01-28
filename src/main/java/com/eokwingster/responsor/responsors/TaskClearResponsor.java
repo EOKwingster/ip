@@ -1,6 +1,5 @@
 package com.eokwingster.responsor.responsors;
 
-import com.eokwingster.Wee;
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.responsor.Response;
@@ -8,13 +7,10 @@ import com.eokwingster.responsor.Responsor;
 
 import java.util.List;
 
-public class StartChatResponsor implements Responsor {
-    /**
-     * start a new chat
-     * @return the chat start message
-     */
+public class TaskClearResponsor implements Responsor {
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        return builtResponse.appendMessages("Hello! I'm " + Wee.NAME, "What can I do for you?");
+        chatData.getTasks().clear();
+        return builtResponse.appendMessage("All tasks have been cleared").addTags(Response.Tag.SAVE);
     }
 }

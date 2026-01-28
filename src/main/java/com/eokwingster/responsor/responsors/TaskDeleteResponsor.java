@@ -16,7 +16,7 @@ public class TaskDeleteResponsor implements Responsor {
                 "This task has been removed:",
                 "  " + task,
                 "Now you have " + chatData.getTasks().size() + " tasks."
-        );
+        ).addTags(Response.Tag.SAVE);
         return builtResponse;
     }
 }

@@ -122,6 +122,7 @@ public record Response(List<DynamicMessage> messages, int commandN, Set<Tag> tag
     }
 
     public enum Tag {
-        Exit
+        EXIT,
+        SAVE
     }
 }

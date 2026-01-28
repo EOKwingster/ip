@@ -12,4 +12,5 @@ public class Keywords {
     public static final Keyword SET_TASK_BEGIN = new SetTaskBeginTimeKeyword();
     public static final Keyword SET_TASK_END = new SetTaskEndTimeKeyword();
     public static final Keyword DELETE_TASK = new DeleteTaskKeyword();
+    public static final Keyword CLEAR_TASK = new ClearTaskKeyword();
 }
