@@ -7,6 +7,7 @@ import com.eokwingster.command.keyword.Keyword;
 import com.eokwingster.command.Step;
 import com.eokwingster.command.keyword.Keywords;
 import com.eokwingster.data.ChatData;
+import com.eokwingster.data.Storage;
 import com.eokwingster.data.task.TaskType;
 import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.responsors.ExitChatResponsor;
@@ -28,10 +29,12 @@ import java.util.Scanner;
 public class Wee {
     public static final String NAME = "Wee";
     private final ChatData chatData;
+    private final Storage storage;
     private final UI ui;
 
     private Wee() {
         chatData = new ChatData();
+        storage = new Storage();
         ui = new UI();
     }
 
@@ -47,7 +50,7 @@ public class Wee {
 
         Wee wee = new Wee();
         wee.setUp();
-        wee.chatData.load();
+        wee.storage.load(wee.chatData);
         wee.ui.display(wee.getResponseFromInput("new"));
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -55,7 +58,7 @@ public class Wee {
             Response response = wee.getResponseFromInput(input);
             wee.ui.display(response);
             if (response.tags().contains(Response.Tag.SAVE)) {
-                wee.chatData.save();
+                wee.storage.save(wee.chatData);
             }
             if (response.tags().contains(Response.Tag.EXIT)) {
                 break;
