@@ -17,6 +17,8 @@ import com.eokwingster.responsor.responsors.TaskDoneStatusResponsor;
 import com.eokwingster.responsor.responsors.TaskEndTimeResponsor;
 import com.eokwingster.responsor.responsors.TaskListResponsor;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,10 +28,10 @@ public class Wee {
     private final ChatData chatData;
 
     private Wee() {
-        this.chatData = new ChatData();
+        chatData = new ChatData();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         String logo = """
                 █   █  █████  █████
                 █   █  █      █
@@ -41,12 +43,14 @@ public class Wee {
 
         Wee wee = new Wee();
         wee.setUp();
+        wee.chatData.load();
         wee.getResponseFromInput("new").say();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             Response response = wee.getResponseFromInput(input);
             response.say();
+            wee.chatData.save();
             if (response.tags().contains(Response.Tag.Exit)) {
                 break;
             }

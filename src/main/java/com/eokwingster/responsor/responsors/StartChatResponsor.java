@@ -15,7 +15,6 @@ public class StartChatResponsor implements Responsor {
      */
     @Override
     public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
-        chatData.reset();
         return builtResponse.appendMessages("Hello! I'm " + Wee.NAME, "What can I do for you?");
     }
 }
