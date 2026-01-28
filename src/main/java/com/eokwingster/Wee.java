@@ -1,6 +1,7 @@
 package com.eokwingster;
 
 import com.eokwingster.command.CommandRegistry;
+import com.eokwingster.command.keyword.CommandRoot;
 import com.eokwingster.command.keyword.Keyword;
 import com.eokwingster.command.Step;
 import com.eokwingster.command.keyword.Keywords;
@@ -79,7 +80,8 @@ public class Wee {
     public List<Step> getStepsFromInput(String input) throws IllegalArgumentException {
         List<String> stringSteps = List.of(input.split(" /"));
         List<Step> steps = new ArrayList<>();
-        Keyword rootKeyword = null;
+        String rootAlias = null;
+        List<Keyword> requiredModifiers =  new ArrayList<>();
         for (int i = 0; i < stringSteps.size(); i++) {
             String[] step = stringSteps.get(i).split(" ", 2);
             String alias = step[0];
@@ -91,25 +93,30 @@ public class Wee {
             }
             Keyword keyword = CommandRegistry.getKeyword(alias);
             if (keyword == null) {
-                throw new IllegalArgumentException(alias + "is not a keyword");
+                throw new IllegalArgumentException(alias + " is not a keyword");
             }
-            List<Keyword> rootKeywords = keyword.getRootKeywords();
             if (i == 0) {
-                if (!rootKeywords.isEmpty()) {
+                if (keyword instanceof CommandRoot commandRoot) {
+                    rootAlias = alias;
+                    requiredModifiers.addAll(commandRoot.getRequiredModifiers());
+                } else {
                     throw new IllegalArgumentException("The first keyword must not be a modifier: " + alias);
                 }
-                rootKeyword = keyword;
             } else {
-                if (rootKeywords.isEmpty()) {
+                if (keyword instanceof CommandRoot) {
                     throw new IllegalArgumentException("This keyword is not a modifier: " + alias);
-                } else if (!rootKeywords.contains(rootKeyword)) {
-                    throw new IllegalArgumentException(alias + " must follows a root keyword in: " + rootKeywords);
+                } else if (!requiredModifiers.remove(keyword)) {
+                    throw new IllegalArgumentException(alias + " is not a legal modifier for " + rootAlias);
                 }
             }
             keyword.validateStep(alias, argument, chatData);
 
             steps.add(new Step(keyword, alias, argument));
         }
+        if (!requiredModifiers.isEmpty()) {
+            throw new IllegalArgumentException("Some required modifiers lost!");
+        }
+
         return steps;
     }
 

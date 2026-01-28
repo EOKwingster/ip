@@ -23,12 +23,4 @@ public interface Keyword {
      * @return List of aliases
      */
     List<String> getAliases();
-
-    /**
-     * Get the root keyword this keyword follows
-     * @return List of keywords if this keyword is a modifier, default an empty list
-     */
-    default List<Keyword> getRootKeywords() {
-        return List.of();
-    }
 }

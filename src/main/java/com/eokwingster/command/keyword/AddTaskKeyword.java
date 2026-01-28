@@ -2,7 +2,7 @@ package com.eokwingster.command.keyword;
 
 import com.eokwingster.data.ChatData;
 
-public abstract class AddTaskKeyword extends NotBlankArgumentKeyword {
+public abstract class AddTaskKeyword extends NotBlankArgumentKeyword implements CommandRoot {
     @Override
     public void validateStep(String alias, String argument, ChatData chatData) throws IllegalArgumentException {
         try {
