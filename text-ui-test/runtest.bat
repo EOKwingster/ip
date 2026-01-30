@@ -1,21 +1,21 @@
 @ECHO OFF
 
-REM create bin directory if it doesn't exist
-if not exist ..\bin mkdir ..\bin
+REM Set gradle path
+SET ROOT_DIR=..
+SET GRADLE_CMD=%ROOT_DIR%\gradlew
 
-REM delete output from previous run
-if exist ACTUAL.TXT del ACTUAL.TXT
-
-REM compile the code into the bin folder
-javac  -cp ".;..\lib\gson-2.13.1.jar;..\src\main\java" -Xlint:none -d ..\bin ..\src\main\java\com\eokwingster\Wee.java
+REM Clean and Compile using Gradle
+REM 'classes' handles compilation; 'clean' ensures a fresh start
+call %GRADLE_CMD% -p %ROOT_DIR% clean classes
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
 )
-REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath "..\bin;..\lib\gson-2.13.1.jar" com.eokwingster.Wee < input.txt > ACTUAL.TXT
+REM Run the program using Gradle's 'run' task
+REM Pass the input.txt and redirect output to ACTUAL.TXT
+REM This needs 'application' plugin applied in build.gradle
+call %GRADLE_CMD% -p %ROOT_DIR% run --quiet --console=plain < input.txt > ACTUAL.TXT
 
-REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+REM Compare the output
+FC /N ACTUAL.TXT EXPECTED.TXT
