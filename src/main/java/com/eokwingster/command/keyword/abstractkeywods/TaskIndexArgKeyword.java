@@ -14,7 +14,7 @@ public abstract class TaskIndexArgKeyword implements Keyword {
             if (chatData.getTaskCount() <= i || i < 0) {
                 throw new IllegalArgumentException(String.format(
                         "You don't have a task with this number: %s,"
-                                + "use /list to list your tasks",
+                                + " use /list to list your tasks",
                         argument
                 ));
             }
