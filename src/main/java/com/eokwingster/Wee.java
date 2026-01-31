@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.eokwingster.client.UI;
+import com.eokwingster.client.Ui;
 import com.eokwingster.command.CommandParser;
 import com.eokwingster.command.CommandRegistry;
 import com.eokwingster.command.Step;
@@ -32,13 +32,13 @@ public class Wee {
     private final Scanner scanner;
     private final ChatData chatData;
     private final Storage storage;
-    private final UI ui;
+    private final Ui ui;
 
     private Wee() {
         scanner = new Scanner(System.in);
         chatData = new ChatData();
         storage = new Storage();
-        ui = new UI();
+        ui = new Ui();
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException {

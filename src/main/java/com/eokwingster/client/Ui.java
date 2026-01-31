@@ -9,7 +9,7 @@ import com.eokwingster.util.DynamicMessage;
 /**
  * This class contains the user interface functions
  */
-public class UI {
+public class Ui {
     private static final String SPEAKER_LABEL = Wee.NAME + ": ";
     private static final String INDENTATION = " ".repeat(SPEAKER_LABEL.length());
     private static final String LINE_PREFIX = "| ";
