@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import com.eokwingster.data.ChatData;
+import com.eokwingster.data.task.Task;
 import com.eokwingster.util.DynamicMessage;
 
 /**
@@ -109,8 +111,22 @@ public record Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) 
          * @see ChatData
          */
         public Builder appendTasks(ChatData chatData) {
+            return appendTasksConditional(chatData, task -> true);
+        }
+
+        /**
+         * append the messages that list tasks in chatData that return true in a predicate
+         * @param chatData data stored by this chat
+         * @param predicate receive a task and return a boolean
+         * @return builder of this response
+         * @see ChatData
+         */
+        public Builder appendTasksConditional(ChatData chatData, Predicate<Task> predicate) {
             for (int i = 0; i < chatData.getTaskCount(); i++) {
-                appendMessages((i + 1) + "." + chatData.getTaskAt(i));
+                Task task = chatData.getTaskAt(i);
+                if (predicate.test(task)) {
+                    appendMessages((i + 1) + "." + chatData.getTaskAt(i));
+                }
             }
             return this;
         }

@@ -69,6 +69,34 @@ Wee: | Task in your list:
 
 Wee: | All tasks have been cleared
 
+Wee: | Task added:
+     |   [T][ ] abc
+     | Now you have 1 tasks.
+
+Wee: | Task added:
+     |   [T][ ] band
+     | Now you have 2 tasks.
+
+Wee: | Task added:
+     |   [T][ ] big thing
+     | Now you have 3 tasks.
+
+Wee: | Task in your list:
+     | 1.[T][ ] abc
+     | 2.[T][ ] band
+     | 3.[T][ ] big thing
+
+Wee: | Tasks in your list matching: a
+     | 1.[T][ ] abc
+     | 2.[T][ ] band
+
+Wee: | Tasks in your list matching: b
+     | 1.[T][ ] abc
+     | 2.[T][ ] band
+     | 3.[T][ ] big thing
+
+Wee: | All tasks have been cleared
+
 Wee: | Hello! I'm Wee
      | What can I do for you?
 

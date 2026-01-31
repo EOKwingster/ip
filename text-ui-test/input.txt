@@ -12,6 +12,13 @@ list
 unmark 2
 list
 clear
+todo abc
+todo band
+todo big thing
+list
+find a
+find b
+clear
 new
 deadline d / 03-03
 todo
