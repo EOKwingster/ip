@@ -29,17 +29,41 @@ import com.eokwingster.responsor.responsors.TaskListResponsor;
  */
 public class Wee {
     public static final String NAME = "Wee";
+    private final Scanner scanner;
     private final ChatData chatData;
     private final Storage storage;
     private final UI ui;
 
     private Wee() {
+        scanner = new Scanner(System.in);
         chatData = new ChatData();
         storage = new Storage();
         ui = new UI();
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException {
+        Wee wee = new Wee();
+        wee.setUp();
+        wee.run();
+    }
+
+    private void run() throws IOException, URISyntaxException {
+        printLogo();
+        ui.display(getResponseFromInput("new"));
+        while (true) {
+            String input = scanner.nextLine();
+            Response response = getResponseFromInput(input);
+            ui.display(response);
+            if (response.tags().contains(Response.Tag.SAVE)) {
+                storage.save(chatData);
+            }
+            if (response.tags().contains(Response.Tag.EXIT)) {
+                break;
+            }
+        }
+    }
+
+    private void printLogo() {
         String logo = """
                 █   █  █████  █████
                 █   █  █      █
@@ -48,23 +72,6 @@ public class Wee {
                 █   █  █████  █████
                 """;
         System.out.println(logo);
-
-        Wee wee = new Wee();
-        wee.setUp();
-        wee.storage.load(wee.chatData);
-        wee.ui.display(wee.getResponseFromInput("new"));
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            Response response = wee.getResponseFromInput(input);
-            wee.ui.display(response);
-            if (response.tags().contains(Response.Tag.SAVE)) {
-                wee.storage.save(wee.chatData);
-            }
-            if (response.tags().contains(Response.Tag.EXIT)) {
-                break;
-            }
-        }
     }
 
     /**
@@ -90,7 +97,12 @@ public class Wee {
     /**
      * Run the necessary set up before the chat starts
      */
-    private void setUp() {
+    private void setUp() throws IOException, URISyntaxException {
+        register();
+        storage.load(chatData);
+    }
+
+    private void register() {
         CommandRegistry.registerResponsor(new StartChatResponsor(), Keywords.START_CHAT);
         CommandRegistry.registerResponsor(new ExitChatResponsor(), Keywords.EXIT_CHAT);
         CommandRegistry.registerResponsor(new TaskAddResponsor(TaskType.TO_DO), Keywords.ADD_TODO_TASK);
