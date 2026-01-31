@@ -16,6 +16,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public boolean ifDescriptionContains(String s) {
+        return description.contains(s);
+    }
+
     /**
      * Get type in TaskType enum of this task class
      * @return A TaskType

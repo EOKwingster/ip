@@ -23,6 +23,7 @@ import com.eokwingster.responsor.responsors.TaskDeleteResponsor;
 import com.eokwingster.responsor.responsors.TaskDoneStatusResponsor;
 import com.eokwingster.responsor.responsors.TaskEndTimeResponsor;
 import com.eokwingster.responsor.responsors.TaskListResponsor;
+import com.eokwingster.responsor.responsors.TasksFindResponsor;
 
 /**
  * Main class of the chatbot, handles the setup and lifecycle
@@ -115,5 +116,6 @@ public class Wee {
         CommandRegistry.registerResponsor(new TaskEndTimeResponsor(), Keywords.SET_TASK_END);
         CommandRegistry.registerResponsor(new TaskDeleteResponsor(), Keywords.DELETE_TASK);
         CommandRegistry.registerResponsor(new TaskClearResponsor(), Keywords.CLEAR_TASK);
+        CommandRegistry.registerResponsor(new TasksFindResponsor(), Keywords.FIND_TASKS);
     }
 }
