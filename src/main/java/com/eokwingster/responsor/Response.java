@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.eokwingster.data.ChatData;
 import com.eokwingster.util.DynamicMessage;
 
 /**
@@ -99,6 +100,19 @@ public record Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) 
          */
         public Builder appendWarning(String format, Object... args) {
             return appendMessage("!!Warning: " + format, args);
+        }
+
+        /**
+         * append the messages that list all tasks in chatData
+         * @param chatData data stored by this chat
+         * @return builder of this response
+         * @see ChatData
+         */
+        public Builder appendTasks(ChatData chatData) {
+            for (int i = 0; i < chatData.getTaskCount(); i++) {
+                appendMessages((i + 1) + "." + chatData.getTaskAt(i));
+            }
+            return this;
         }
 
         /**
