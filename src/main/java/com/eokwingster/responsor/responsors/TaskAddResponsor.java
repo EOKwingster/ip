@@ -1,5 +1,7 @@
 package com.eokwingster.responsor.responsors;
 
+import java.util.List;
+
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.Task;
@@ -7,8 +9,10 @@ import com.eokwingster.data.task.TaskType;
 import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.Responsor;
 
-import java.util.List;
-
+/**
+ * Responsor that adding a task.
+ * Can be constructed with task type for adding different types of tasks.
+ */
 public class TaskAddResponsor implements Responsor {
     private final TaskType taskType;
 
@@ -16,12 +20,12 @@ public class TaskAddResponsor implements Responsor {
         this.taskType = taskType;
     }
 
-    /**
-     * add a task into chat data
-     * @return task added message
-     */
     @Override
-    public Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps) {
+    public Response.Builder response(
+            String argument,
+            ChatData chatData,
+            Response.Builder builtResponse,
+            List<Step> steps) {
         Task task = taskType.createTask(argument);
         chatData.addTask(task);
         return builtResponse.appendMessage("Task added:")

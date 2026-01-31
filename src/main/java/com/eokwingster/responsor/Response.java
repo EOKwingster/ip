@@ -1,23 +1,34 @@
 package com.eokwingster.responsor;
 
-import com.eokwingster.util.DynamicMessage;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.eokwingster.util.DynamicMessage;
+
 /**
  * Response output by Responsors
  *
  * @param messages Strings that will be printed
- * @param commandN the number of commands have been processed to output this response
+ * @param stepN the number of commands have been processed to output this response
  * @param tags     set of tags that label special status of responses
  */
-public record Response(List<DynamicMessage> messages, int commandN, Set<Tag> tags) {
-    public Response(List<DynamicMessage> messages, int commandN, Set<Tag> tags) {
+public record Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) {
+
+    /**
+     * This constructor is an insurance for preventing this response from containing any mutable collection.
+     * A response should be obtained from builder in most of the cases.
+     * @param messages a list of dynamic messages
+     * @param stepN the number of steps have been executed on this response
+     * @param tags list of tags
+     * @see Builder
+     * @see com.eokwingster.command.Step
+     * @see Tag
+     */
+    public Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) {
         this.messages = List.copyOf(messages);
-        this.commandN = commandN;
+        this.stepN = stepN;
         this.tags = Set.copyOf(tags);
     }
 
@@ -25,14 +36,17 @@ public record Response(List<DynamicMessage> messages, int commandN, Set<Tag> tag
         return new Builder();
     }
 
+    /**
+     * Builder of response, for handling frequent minor edits, will be pass through the responsor pipeline
+     */
     public static class Builder {
         private List<DynamicMessage> messages;
-        private int commandN;
+        private int stepN;
         private Set<Tag> tags;
 
         private Builder() {
             messages = new ArrayList<>();
-            commandN = 0;
+            stepN = 0;
             tags = new HashSet<>();
         }
 
@@ -40,8 +54,8 @@ public record Response(List<DynamicMessage> messages, int commandN, Set<Tag> tag
          * increase the number of command executed by one
          * @return builder of this response
          */
-        public Builder withNextCommandN() {
-            commandN++;
+        public Builder withNextStepN() {
+            stepN++;
             return this;
         }
 
@@ -101,10 +115,13 @@ public record Response(List<DynamicMessage> messages, int commandN, Set<Tag> tag
          * @return response built
          */
         public Response build() {
-            return new Response(messages, commandN, tags);
+            return new Response(messages, stepN, tags);
         }
     }
 
+    /**
+     * Tags for labeling special cases. Special responsors will add corresponding tags into list of tags in response
+     */
     public enum Tag {
         EXIT,
         SAVE

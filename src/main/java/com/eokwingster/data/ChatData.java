@@ -1,7 +1,5 @@
 package com.eokwingster.data;
 
-import com.eokwingster.data.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -9,6 +7,8 @@ import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import com.eokwingster.data.task.Task;
 
 /**
  * This class store all the data needed and generated in a chat.
@@ -20,7 +20,8 @@ public class ChatData {
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 23)
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 59)
             .toFormatter(Locale.US);
-    public static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("yyyy MMM dd hh:mm a", Locale.US);
+    public static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER = DateTimeFormatter
+            .ofPattern("yyyy MMM dd hh:mm a", Locale.US);
 
     private final List<Task> tasks = new ArrayList<>();
     private int focusingTaskIndex = -1;

@@ -1,11 +1,14 @@
 package com.eokwingster.client;
 
+import java.util.List;
+
 import com.eokwingster.Wee;
 import com.eokwingster.responsor.Response;
 import com.eokwingster.util.DynamicMessage;
 
-import java.util.List;
-
+/**
+ * This class contains the user interface functions
+ */
 public class UI {
     private static final String SPEAKER_LABEL = Wee.NAME + ": ";
     private static final String INDENTATION = " ".repeat(SPEAKER_LABEL.length());
@@ -22,7 +25,7 @@ public class UI {
         List<DynamicMessage> messages = response.messages();
         for (int i = 0; i < messages.size(); i++) {
             String prefix = (i == 0 ? SPEAKER_LABEL : INDENTATION) + LINE_PREFIX;
-            stringBuilder.append(prefix).append(String.format("%s", messages.get(i))).append("\n");
+            stringBuilder.append(String.format("%s%s", prefix, messages.get(i))).append("\n");
         }
         System.out.println(stringBuilder);
     }

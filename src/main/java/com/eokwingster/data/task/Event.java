@@ -1,15 +1,24 @@
 package com.eokwingster.data.task;
 
+import java.time.LocalDateTime;
+
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.HasBeginTime;
 import com.eokwingster.data.HasEndTime;
 
-import java.time.LocalDateTime;
-
+/**
+ * Task with a beginning time and an end time
+ */
 public class Event extends Task implements HasBeginTime, HasEndTime {
     private LocalDateTime beginTime;
     private LocalDateTime endTime;
 
+    /**
+     * Constructor
+     * @param description A short string description of this event
+     * @param beginTime LocalDateTime object
+     * @param endTime LocalDateTime Object
+     */
     public Event(String description, LocalDateTime beginTime, LocalDateTime endTime) {
         super(description);
         this.beginTime = beginTime;

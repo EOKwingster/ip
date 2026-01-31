@@ -1,9 +1,9 @@
 package com.eokwingster.responsor;
 
+import java.util.List;
+
 import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
-
-import java.util.List;
 
 /**
  * define the universal response behavior。
@@ -11,7 +11,10 @@ import java.util.List;
  */
 public interface Responsor {
     /**
-     * The response logic of this Responsor
+     * The processing logic of this responsor, includes following behavior:
+     * 1. Edit generated messages
+     * 2. Add tags
+     * 3. do some operations on chat data
      * @param argument the argument after keyword
      * @param chatData the data stored in current chat
      * @param builtResponse the response given by previous responsors in this command line
@@ -19,5 +22,9 @@ public interface Responsor {
      * @return The builder of the response for this command line.
      * @see Response
      */
-    Response.Builder response(String argument, ChatData chatData, Response.Builder builtResponse, List<Step> steps);
+    Response.Builder response(
+            String argument,
+            ChatData chatData,
+            Response.Builder builtResponse,
+            List<Step> steps);
 }

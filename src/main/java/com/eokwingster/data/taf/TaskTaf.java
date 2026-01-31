@@ -1,5 +1,7 @@
 package com.eokwingster.data.taf;
 
+import java.io.IOException;
+
 import com.eokwingster.data.task.Deadline;
 import com.eokwingster.data.task.Event;
 import com.eokwingster.data.task.Task;
@@ -15,9 +17,10 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
-
-public class TaskTAF implements TypeAdapterFactory {
+/**
+ * TypeAdapterFactory used to generate TypeAdapter of Task class
+ */
+public class TaskTaf implements TypeAdapterFactory {
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
         if (!Task.class.isAssignableFrom(typeToken.getRawType())) {
@@ -28,7 +31,7 @@ public class TaskTAF implements TypeAdapterFactory {
             @Override
             public void write(JsonWriter jsonWriter, Task task) throws IOException {
                 TypeAdapter<Task> delegate = (TypeAdapter<Task>) gson.getDelegateAdapter(
-                        TaskTAF.this, TypeToken.get(task.getClass()));
+                        TaskTaf.this, TypeToken.get(task.getClass()));
 
                 JsonObject jsonObject = delegate.toJsonTree(task).getAsJsonObject();
                 jsonObject.addProperty("type", task.type().name());
@@ -50,7 +53,7 @@ public class TaskTAF implements TypeAdapterFactory {
                     case EVENT -> Event.class;
                 };
 
-                return gson.getDelegateAdapter(TaskTAF.this, TypeToken.get(targetClass))
+                return gson.getDelegateAdapter(TaskTaf.this, TypeToken.get(targetClass))
                         .fromJsonTree(jsonObject);
             }
         };

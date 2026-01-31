@@ -13,6 +13,9 @@ import com.eokwingster.command.keyword.keywords.SetTaskEndTimeKeyword;
 import com.eokwingster.command.keyword.keywords.StartChatKeyword;
 import com.eokwingster.command.keyword.keywords.UnmarkTaskKeyword;
 
+/**
+ * All single instances of keywords are stored in this class as constants.
+ */
 public class Keywords {
     public static final Keyword START_CHAT = new StartChatKeyword();
     public static final Keyword EXIT_CHAT = new ExitChatKeyword();

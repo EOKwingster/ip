@@ -1,5 +1,8 @@
 package com.eokwingster.data.task;
 
+/**
+ * Type of task, contains a task creator of corresponding task class
+ */
 public enum TaskType {
     TO_DO {
         @Override

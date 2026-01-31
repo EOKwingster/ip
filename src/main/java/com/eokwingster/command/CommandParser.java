@@ -1,12 +1,15 @@
 package com.eokwingster.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.eokwingster.command.keyword.CommandRoot;
 import com.eokwingster.command.keyword.Keyword;
 import com.eokwingster.data.ChatData;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Handles parsing and validation of input
+ */
 public class CommandParser {
     /**
      * Convert the user input into list of Step after validation
@@ -56,7 +59,12 @@ public class CommandParser {
         }
     }
 
-    private static void validateModifier(String alias, Keyword keyword, String rootAlias, List<Keyword> requiredModifiers) throws IllegalArgumentException {
+    private static void validateModifier(
+            String alias,
+            Keyword keyword,
+            String rootAlias,
+            List<Keyword> requiredModifiers
+    ) throws IllegalArgumentException {
         if (keyword instanceof CommandRoot) {
             throw new IllegalArgumentException("This keyword is not a modifier: " + alias);
         } else if (!requiredModifiers.remove(keyword)) {

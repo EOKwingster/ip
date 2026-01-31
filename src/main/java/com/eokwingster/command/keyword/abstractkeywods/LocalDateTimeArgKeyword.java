@@ -1,11 +1,14 @@
 package com.eokwingster.command.keyword.abstractkeywods;
 
-import com.eokwingster.data.ChatData;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public abstract class SetTaskTimeKeyword extends NotBlankArgumentKeyword {
+import com.eokwingster.data.ChatData;
+
+/**
+ * keyword that require
+ */
+public abstract class LocalDateTimeArgKeyword extends NotBlankArgKeyword {
     @Override
     public void validateStep(String alias, String argument, ChatData chatData) throws IllegalArgumentException {
         try {

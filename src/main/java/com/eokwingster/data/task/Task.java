@@ -1,5 +1,8 @@
 package com.eokwingster.data.task;
 
+/**
+ * Basic task structure and methods, contains a string description and isDone boolean status
+ */
 public abstract class Task {
     private final String description;
     private boolean isDone;

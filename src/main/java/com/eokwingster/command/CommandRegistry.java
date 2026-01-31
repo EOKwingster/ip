@@ -1,11 +1,11 @@
 package com.eokwingster.command;
 
-import com.eokwingster.command.keyword.Keyword;
-import com.eokwingster.responsor.Responsor;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.eokwingster.command.keyword.Keyword;
+import com.eokwingster.responsor.Responsor;
 
 /**
  * The registry handle the connection between:

@@ -1,10 +1,13 @@
 package com.eokwingster.command.keyword.keywords;
 
-import com.eokwingster.command.keyword.abstractkeywods.SetTaskTimeKeyword;
-
 import java.util.List;
 
-public class SetTaskEndTimeKeyword extends SetTaskTimeKeyword {
+import com.eokwingster.command.keyword.abstractkeywods.LocalDateTimeArgKeyword;
+
+/**
+ * keyword for setting an end time for a task
+ */
+public class SetTaskEndTimeKeyword extends LocalDateTimeArgKeyword {
     @Override
     public List<String> getAliases() {
         return List.of("to", "by");

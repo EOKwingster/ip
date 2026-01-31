@@ -1,5 +1,10 @@
 package com.eokwingster;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Scanner;
+
 import com.eokwingster.client.UI;
 import com.eokwingster.command.CommandParser;
 import com.eokwingster.command.CommandRegistry;
@@ -19,11 +24,9 @@ import com.eokwingster.responsor.responsors.TaskDoneStatusResponsor;
 import com.eokwingster.responsor.responsors.TaskEndTimeResponsor;
 import com.eokwingster.responsor.responsors.TaskListResponsor;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Scanner;
-
+/**
+ * Main class of the chatbot, handles the setup and lifecycle
+ */
 public class Wee {
     public static final String NAME = "Wee";
     private final ChatData chatData;
@@ -77,7 +80,9 @@ public class Wee {
             return response.appendWarning(e.getMessage()).build();
         }
         for (Step step : steps) {
-            CommandRegistry.getResponsor(step.keyword()).response(step.argument(), chatData, response, steps).withNextCommandN();
+            CommandRegistry.getResponsor(step.keyword())
+                    .response(step.argument(), chatData, response, steps)
+                    .withNextStepN();
         }
         return response.build();
     }

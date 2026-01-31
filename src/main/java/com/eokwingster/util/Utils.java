@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Contains all util functions
+ */
 public class Utils {
     /**
      * Get the path of the folder where the .jar file contains this chatbot locates

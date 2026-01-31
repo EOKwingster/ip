@@ -1,20 +1,23 @@
 package com.eokwingster.data;
 
-import com.eokwingster.data.taf.LocalDateTimeTAF;
-import com.eokwingster.data.taf.TaskTAF;
-import com.eokwingster.util.Utils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 
+import com.eokwingster.data.taf.LocalDateTimeTaf;
+import com.eokwingster.data.taf.TaskTaf;
+import com.eokwingster.util.Utils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+/**
+ * Handles saving and loading of chat data
+ */
 public class Storage {
     private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapterFactory(new TaskTAF())
-            .registerTypeAdapterFactory(new LocalDateTimeTAF())
+            .registerTypeAdapterFactory(new TaskTaf())
+            .registerTypeAdapterFactory(new LocalDateTimeTaf())
             .setPrettyPrinting()
             .create();
 

@@ -1,13 +1,21 @@
 package com.eokwingster.data.task;
 
+import java.time.LocalDateTime;
+
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.HasEndTime;
 
-import java.time.LocalDateTime;
-
+/**
+ * Task with an end time
+ */
 public class Deadline extends Task implements HasEndTime {
     protected LocalDateTime endTime;
 
+    /**
+     * Constructor
+     * @param description a short string description of this deadline
+     * @param endTime a LocalDateTime object
+     */
     public Deadline(String description, LocalDateTime endTime) {
         super(description);
         this.endTime = endTime;

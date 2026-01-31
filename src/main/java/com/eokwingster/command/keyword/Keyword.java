@@ -1,8 +1,8 @@
 package com.eokwingster.command.keyword;
 
-import com.eokwingster.data.ChatData;
-
 import java.util.List;
+
+import com.eokwingster.data.ChatData;
 
 /**
  * Represent the keywords parse from user input
