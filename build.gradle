@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("com.eokwingster.Wee")
+    mainClass.set("com.eokwingster.Launcher")
 }
 
 shadowJar {

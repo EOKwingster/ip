@@ -14,4 +14,9 @@ public record DynamicMessage(String format, Object... args) implements Formattab
     public void formatTo(Formatter formatter, int flags, int width, int precision) {
         formatter.format(format, args);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s", this);
+    }
 }
