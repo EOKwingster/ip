@@ -32,7 +32,7 @@ public class Deadline extends Task implements HasEndTime {
     }
 
     @Override
-    public TaskType type() {
+    public TaskType getType() {
         return TaskType.DEADLINE;
     }
 

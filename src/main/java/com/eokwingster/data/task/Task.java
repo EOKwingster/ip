@@ -24,11 +24,11 @@ public abstract class Task {
      * Get type in TaskType enum of this task class
      * @return A TaskType
      */
-    public abstract TaskType type();
+    public abstract TaskType getType();
 
     @Override
     public String toString() {
         String doneStatus = isDone ? "X" : " ";
-        return String.format("[%s][%s] %s", type().toString().charAt(0), doneStatus, description);
+        return String.format("[%s][%s] %s", getType().toString().charAt(0), doneStatus, description);
     }
 }

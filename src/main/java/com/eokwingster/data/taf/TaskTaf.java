@@ -34,7 +34,7 @@ public class TaskTaf implements TypeAdapterFactory {
                         TaskTaf.this, TypeToken.get(task.getClass()));
 
                 JsonObject jsonObject = delegate.toJsonTree(task).getAsJsonObject();
-                jsonObject.addProperty("type", task.type().name());
+                jsonObject.addProperty("type", task.getType().name());
 
                 gson.toJson(jsonObject, jsonWriter);
             }

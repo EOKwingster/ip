@@ -9,7 +9,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public TaskType type() {
+    public TaskType getType() {
         return TaskType.TO_DO;
     }
 }
