@@ -7,6 +7,9 @@ import com.eokwingster.data.ChatData;
 import com.eokwingster.responsor.Response;
 import com.eokwingster.responsor.Responsor;
 
+/**
+ * Responsor that handle task searching.
+ */
 public class TasksFindResponsor implements Responsor {
     @Override
     public Response.Builder response(
