@@ -39,6 +39,15 @@ public record Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) 
         return new Builder();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (DynamicMessage message : messages) {
+            stringBuilder.append(message).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
     /**
      * Builder of response, for handling frequent minor edits, will be pass through the responsor pipeline
      */
