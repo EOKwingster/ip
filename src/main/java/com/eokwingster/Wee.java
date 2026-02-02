@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.eokwingster.client.Gui;
 import com.eokwingster.client.Ui;
 import com.eokwingster.command.CommandParser;
 import com.eokwingster.command.CommandRegistry;
@@ -24,28 +25,33 @@ import com.eokwingster.responsor.responsors.TaskDoneStatusResponsor;
 import com.eokwingster.responsor.responsors.TaskEndTimeResponsor;
 import com.eokwingster.responsor.responsors.TaskListResponsor;
 import com.eokwingster.responsor.responsors.TasksFindResponsor;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Main class of the chatbot, handles the setup and lifecycle
  */
-public class Wee {
+public class Wee extends Application {
     public static final String NAME = "Wee";
     private final Scanner scanner;
     private final ChatData chatData;
     private final Storage storage;
     private final Ui ui;
+    private Gui gui;
 
-    private Wee() {
+    public Wee() {
         scanner = new Scanner(System.in);
         chatData = new ChatData();
         storage = new Storage();
         ui = new Ui();
+        gui = null;
     }
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        Wee wee = new Wee();
-        wee.setUp();
-        wee.run();
+    @Override
+    public void start(Stage stage) throws Exception {
+        setUpServer();
+        setUpClient(stage);
+        gui.show();
     }
 
     private void run() throws IOException, URISyntaxException {
@@ -98,9 +104,13 @@ public class Wee {
     /**
      * Run the necessary set up before the chat starts
      */
-    private void setUp() throws IOException, URISyntaxException {
+    private void setUpServer() throws IOException, URISyntaxException {
         register();
         storage.load(chatData);
+    }
+
+    private void setUpClient(Stage stage) {
+        gui = new Gui(stage);
     }
 
     private void register() {
