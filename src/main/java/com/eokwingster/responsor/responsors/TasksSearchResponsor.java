@@ -7,7 +7,7 @@ import com.eokwingster.responsor.Responsor;
 /**
  * Responsor that handle task searching.
  */
-public class TasksFindResponsor implements Responsor {
+public class TasksSearchResponsor implements Responsor {
     @Override
     public Response.Builder response(
             String argument,
@@ -16,7 +16,7 @@ public class TasksFindResponsor implements Responsor {
         return builtResponse.appendMessage("Tasks in your list matching: " + argument)
                 .appendTasksConditional(
                         chatData,
-                    task -> task.ifDescriptionContains(argument)
+                    task -> task.ifDescriptionMatchSimilarly(argument, 0.8f)
                 );
     }
 }

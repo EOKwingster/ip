@@ -8,7 +8,7 @@ import com.eokwingster.command.keyword.abstractkeywods.NotBlankArgKeyword;
 /***
  * Keyword for task searching.
  */
-public class FindTasksKeyword extends NotBlankArgKeyword implements CommandRoot {
+public class SearchTasksKeyword extends NotBlankArgKeyword implements CommandRoot {
     @Override
     public List<String> getAliases() {
         return List.of("find");

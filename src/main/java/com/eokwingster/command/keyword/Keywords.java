@@ -6,9 +6,9 @@ import com.eokwingster.command.keyword.keywords.AddTodoTaskKeyword;
 import com.eokwingster.command.keyword.keywords.ClearTaskKeyword;
 import com.eokwingster.command.keyword.keywords.DeleteTaskKeyword;
 import com.eokwingster.command.keyword.keywords.ExitChatKeyword;
-import com.eokwingster.command.keyword.keywords.FindTasksKeyword;
 import com.eokwingster.command.keyword.keywords.ListTasksKeyword;
 import com.eokwingster.command.keyword.keywords.MarkTaskKeyword;
+import com.eokwingster.command.keyword.keywords.SearchTasksKeyword;
 import com.eokwingster.command.keyword.keywords.SetTaskBeginTimeKeyword;
 import com.eokwingster.command.keyword.keywords.SetTaskEndTimeKeyword;
 import com.eokwingster.command.keyword.keywords.StartChatKeyword;
@@ -30,5 +30,5 @@ public class Keywords {
     public static final Keyword SET_TASK_END = new SetTaskEndTimeKeyword();
     public static final Keyword DELETE_TASK = new DeleteTaskKeyword();
     public static final Keyword CLEAR_TASK = new ClearTaskKeyword();
-    public static final Keyword FIND_TASKS = new FindTasksKeyword();
+    public static final Keyword SEARCH_TASKS = new SearchTasksKeyword();
 }

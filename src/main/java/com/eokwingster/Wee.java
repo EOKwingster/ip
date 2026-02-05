@@ -13,7 +13,7 @@ import com.eokwingster.responsor.responsors.TaskDeleteResponsor;
 import com.eokwingster.responsor.responsors.TaskDoneStatusResponsor;
 import com.eokwingster.responsor.responsors.TaskEndTimeResponsor;
 import com.eokwingster.responsor.responsors.TaskListResponsor;
-import com.eokwingster.responsor.responsors.TasksFindResponsor;
+import com.eokwingster.responsor.responsors.TasksSearchResponsor;
 import com.eokwingster.server.Server;
 
 import javafx.application.Application;
@@ -67,6 +67,6 @@ public class Wee extends Application {
         CommandRegistry.registerResponsor(new TaskEndTimeResponsor(), Keywords.SET_TASK_END);
         CommandRegistry.registerResponsor(new TaskDeleteResponsor(), Keywords.DELETE_TASK);
         CommandRegistry.registerResponsor(new TaskClearResponsor(), Keywords.CLEAR_TASK);
-        CommandRegistry.registerResponsor(new TasksFindResponsor(), Keywords.FIND_TASKS);
+        CommandRegistry.registerResponsor(new TasksSearchResponsor(), Keywords.SEARCH_TASKS);
     }
 }
