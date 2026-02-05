@@ -7,7 +7,7 @@ import com.eokwingster.responsor.Responsor;
 /**
  * Responsor that handle task searching.
  */
-public class TasksFindResponsor implements Responsor {
+public class TasksSearchResponsor implements Responsor {
     @Override
     public Response.Builder response(
             String argument,
