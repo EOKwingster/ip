@@ -21,6 +21,7 @@ public class CommandRegistry {
 
     private static void registerKeywords(List<Keyword> keywords) {
         for (Keyword keyword : keywords) {
+            assert !keyword.getAliases().isEmpty() : "Keywords must have at least one alias";
             for (String alias : keyword.getAliases()) {
                 ALIAS_TO_KEYWORD.put(alias, keyword);
             }
