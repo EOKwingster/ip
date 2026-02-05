@@ -68,8 +68,7 @@ public class Server {
         }
         for (Step step : steps) {
             CommandRegistry.getResponsor(step.keyword())
-                    .response(step.argument(), chatData, response, steps)
-                    .withNextStepN();
+                    .response(step.argument(), chatData, response);
         }
         return response.build();
     }
