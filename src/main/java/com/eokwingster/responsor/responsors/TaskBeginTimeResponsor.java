@@ -1,9 +1,7 @@
 package com.eokwingster.responsor.responsors;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.HasBeginTime;
 import com.eokwingster.responsor.Response;
@@ -17,8 +15,7 @@ public class TaskBeginTimeResponsor implements Responsor {
     public Response.Builder response(
             String argument,
             ChatData chatData,
-            Response.Builder builtResponse,
-            List<Step> steps) {
+            Response.Builder builtResponse) {
         HasBeginTime task = (HasBeginTime) chatData.getFocusingTask();
         task.setBeginTime(LocalDateTime.parse(argument, ChatData.DATE_TIME_SAVE_FORMATTER));
         return builtResponse;

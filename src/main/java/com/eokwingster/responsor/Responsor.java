@@ -1,8 +1,5 @@
 package com.eokwingster.responsor;
 
-import java.util.List;
-
-import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 
 /**
@@ -15,16 +12,15 @@ public interface Responsor {
      * 1. Edit generated messages
      * 2. Add tags
      * 3. do some operations on chat data
-     * @param argument the argument after keyword
-     * @param chatData the data stored in current chat
+     *
+     * @param argument      the argument after keyword
+     * @param chatData      the data stored in current chat
      * @param builtResponse the response given by previous responsors in this command line
-     * @param steps list of steps inside user input
      * @return The builder of the response for this command line.
      * @see Response
      */
     Response.Builder response(
             String argument,
             ChatData chatData,
-            Response.Builder builtResponse,
-            List<Step> steps);
+            Response.Builder builtResponse);
 }
