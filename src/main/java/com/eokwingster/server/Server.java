@@ -66,12 +66,13 @@ public class Server {
         } catch (IllegalArgumentException e) {
             return response.appendWarning(e.getMessage()).build();
         }
-        for (Step step : steps) {
-            CommandRegistry.getResponsor(step.keyword())
-                    .response(step.argument(), chatData, response, steps)
-                    .withNextStepN();
-        }
-        return response.build();
+        return steps.stream()
+                .reduce(response, (builtResponse, step) -> {
+                    return CommandRegistry.getResponsor(step.keyword())
+                            .response(step.argument(), chatData, builtResponse, steps)
+                            .withNextStepN();
+                }, (r1, r2) -> r2)
+                .build();
     }
 
     public void setClientResponseHandler(Consumer<Response> responseSender) {
