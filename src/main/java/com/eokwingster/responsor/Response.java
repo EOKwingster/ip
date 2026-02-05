@@ -14,24 +14,21 @@ import com.eokwingster.util.DynamicMessage;
  * Response output by Responsors
  *
  * @param messages Strings that will be printed
- * @param stepN the number of commands have been processed to output this response
  * @param tags     set of tags that label special status of responses
  */
-public record Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) {
+public record Response(List<DynamicMessage> messages, Set<Tag> tags) {
 
     /**
      * This constructor is an insurance for preventing this response from containing any mutable collection.
      * A response should be obtained from builder in most of the cases.
      * @param messages a list of dynamic messages
-     * @param stepN the number of steps have been executed on this response
      * @param tags list of tags
      * @see Builder
      * @see com.eokwingster.command.Step
      * @see Tag
      */
-    public Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) {
+    public Response(List<DynamicMessage> messages, Set<Tag> tags) {
         this.messages = List.copyOf(messages);
-        this.stepN = stepN;
         this.tags = Set.copyOf(tags);
     }
 
@@ -53,22 +50,11 @@ public record Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) 
      */
     public static class Builder {
         private List<DynamicMessage> messages;
-        private int stepN;
         private Set<Tag> tags;
 
         private Builder() {
             messages = new ArrayList<>();
-            stepN = 0;
             tags = new HashSet<>();
-        }
-
-        /**
-         * increase the number of command executed by one
-         * @return builder of this response
-         */
-        public Builder withNextStepN() {
-            stepN++;
-            return this;
         }
 
         /**
@@ -154,7 +140,7 @@ public record Response(List<DynamicMessage> messages, int stepN, Set<Tag> tags) 
          * @return response built
          */
         public Response build() {
-            return new Response(messages, stepN, tags);
+            return new Response(messages, tags);
         }
     }
 
