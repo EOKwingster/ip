@@ -69,8 +69,7 @@ public class Server {
         return steps.stream()
                 .reduce(response, (builtResponse, step) -> {
                     return CommandRegistry.getResponsor(step.keyword())
-                            .response(step.argument(), chatData, builtResponse, steps)
-                            .withNextStepN();
+                            .response(step.argument(), chatData, builtResponse);
                 }, (r1, r2) -> r2)
                 .build();
     }

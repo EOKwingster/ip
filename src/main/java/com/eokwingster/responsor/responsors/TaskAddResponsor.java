@@ -1,8 +1,5 @@
 package com.eokwingster.responsor.responsors;
 
-import java.util.List;
-
-import com.eokwingster.command.Step;
 import com.eokwingster.data.ChatData;
 import com.eokwingster.data.task.Task;
 import com.eokwingster.data.task.TaskType;
@@ -24,8 +21,7 @@ public class TaskAddResponsor implements Responsor {
     public Response.Builder response(
             String argument,
             ChatData chatData,
-            Response.Builder builtResponse,
-            List<Step> steps) {
+            Response.Builder builtResponse) {
         Task task = taskType.createTask(argument);
         chatData.addTask(task);
         return builtResponse.appendMessage("Task added:")
