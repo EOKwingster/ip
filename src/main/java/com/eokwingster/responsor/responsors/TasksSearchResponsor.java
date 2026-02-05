@@ -16,7 +16,7 @@ public class TasksSearchResponsor implements Responsor {
         return builtResponse.appendMessage("Tasks in your list matching: " + argument)
                 .appendTasksConditional(
                         chatData,
-                    task -> task.ifDescriptionContains(argument)
+                    task -> task.ifDescriptionMatchSimilarly(argument, 0.8f)
                 );
     }
 }
